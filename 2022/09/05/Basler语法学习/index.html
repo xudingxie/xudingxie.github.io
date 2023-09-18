@@ -1,0 +1,2095 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Basler语法学习, My Daily Diary">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Basler语法学习 | My Daily Diary</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+
+    <!--在雪花飘落-->
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+
+
+
+<!-- 增加一个加载页面 -->
+ 
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid #49b1f5;
+        border-right-color: transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: #49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+
+
+<body>
+<!-- 增加一个加载页面 -->
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+
+
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">My Daily Diary</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">My Daily Diary</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpeg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Basler语法学习</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/basler/">
+                                <span class="chip bg-color">basler</span>
+                            </a>
+                        
+                            <a href="/tags/NET/">
+                                <span class="chip bg-color">.NET</span>
+                            </a>
+                        
+                            <a href="/tags/c/">
+                                <span class="chip bg-color">c#</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
+                                <span class="chip bg-color">基础语法</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Basler/" class="post-category">
+                                Basler
+                            </a>
+                        
+                            <a href="/categories/Basler/Net/" class="post-category">
+                                .Net
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-09-05
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-10-18
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    17 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>Basler语法学习</p>
+<h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1><h2 id="基础设备"><a href="#基础设备" class="headerlink" title="基础设备"></a>基础设备</h2><h3 id="basler设备的查找"><a href="#basler设备的查找" class="headerlink" title="basler设备的查找"></a>basler设备的查找</h3><h3 id="第一个设备的操作"><a href="#第一个设备的操作" class="headerlink" title="第一个设备的操作"></a>第一个设备的操作</h3><pre class="language-none"><code class="language-none"> &#x2F;&#x2F;声明一个设备
+  PYLON_DEVICE_HANDLE hDev &#x3D; new PYLON_DEVICE_HANDLE();          &#x2F;* Handle for the pylon device. *&#x2F;
+  try
+            &#123;
+                uint numDevices;    &#x2F;* Number of devices available. *&#x2F;
+
+#if DEBUG
+                &#x2F;* This is a special debug setting needed only for GigE cameras.
+                See &#39;Building Applications with pylon&#39; in the programmer&#39;s guide. *&#x2F;
+                Environment.SetEnvironmentVariable(&quot;PYLON_GIGE_HEARTBEAT&quot;, &quot;300000&quot; &#x2F;*ms*&#x2F;);
+#endif
+                &#x2F;* Before using any pylon methods, the pylon runtime must be initialized. *&#x2F;
+                &#x2F;&#x2F;Pylon初始化
+                Pylon.Initialize();
+                &#x2F;* Enumerate all camera devices. You must call
+                Pylon.EnumerateDevices() before creating a device. 
+                 枚举设备获得设备数量*&#x2F;
+                numDevices &#x3D; Pylon.EnumerateDevices();
+                if (0 &#x3D;&#x3D; numDevices)
+                &#123;
+                    throw new Exception(&quot;No devices found.&quot;);
+                &#125;
+                &#x2F;*hDev设为第一个设备的引用 Get a handle for the first device found.  *&#x2F;
+                hDev &#x3D; Pylon.CreateDeviceByIndex(0);
+                &#x2F;*在使用设备前打开此设备 
+                cPylonAccessModeControl&#x3D;&#x3D;1 Write access to device features is allowed.
+                cPylonAccessModeStream &#x3D; 2 Stream grabber access is allowed. 
+                ´Ë´¦Ê¹ÓÃÎ»»òÔËËã£¬¸ù¾ÝÔËËãµÄ½á¹ûµÃµ½ÏàÓ¦µÄÄ£Ê½¡£
+                PYLONC_ACCESS_MODE_CONTROL - Allows to read or write camera parameters to configure the camera. 
+                PYLONC_ACCESS_MODE_STREAM - Allows to read image data from the camera&#39;s stream grabber object. 
+                PYLONC_ACCESS_MODE_EVENT - Allows to read event data from the camera&#39;s stream grabber object. 
+                PYLONC_ACCESS_MODE_EXCLUSIVE - Allows exclusive access. When this flag is specified no other application may access the camera. 
+                PYLONC_ACCESS_MODE_MONITOR - Allows only read access. This flag cannot be combined with any other flags. 
+                It is typically used in Multicast&#x2F;Broadcast applications with GigE cameras. You can pass one or more flags. 
+                If you pass more than one flag you can combine them using the &#39;or&#39; operator. 
+                Before using the device, it must be opened. Open it for configuring
+                parameters and for grabbing images. *&#x2F;
+                Pylon.DeviceOpen(hDev, Pylon.cPylonAccessModeControl | Pylon.cPylonAccessModeStream);
+                &#x2F;* Print out the name of the camera we are using. *&#x2F;
+                &#123;
+                    bool isReadable;
+                    isReadable &#x3D; Pylon.DeviceFeatureIsReadable(hDev, &quot;DeviceModelName&quot;);
+                    if (isReadable)
+                    &#123;
+                        string name &#x3D; Pylon.DeviceFeatureToString(hDev, &quot;DeviceModelName&quot;);
+                        Console.WriteLine(&quot;Using camera &#123;0&#125;&quot;, name);
+                    &#125;
+                &#125;</code></pre>
+<h3 id="多个设备的批量设置"><a href="#多个设备的批量设置" class="headerlink" title="多个设备的批量设置"></a>多个设备的批量设置</h3><pre class="language-none"><code class="language-none">        const uint MAX_NUM_DEVICES &#x3D; 2;
+        const uint NUM_BUFFERS &#x3D; 1;        &#x2F;* Number of buffers used for grabbing. *&#x2F;
+        const uint GIGE_PACKET_SIZE &#x3D; 1500; &#x2F;* Size of one Ethernet packet. *&#x2F;
+        const uint GIGE_PROTOCOL_OVERHEAD &#x3D; 36;   &#x2F;* Total number of bytes of protocol overhead. *&#x2F;
+        const uint AllGroupMask &#x3D; 0xffffffff;
+       &#x2F;&#x2F;&#x2F; &lt;summary&gt;
+        &#x2F;&#x2F;&#x2F; The main entry point for the application.
+        &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;
+        static void Main()
+        &#123;
+            &#x2F;* Use a random number as the device key. *&#x2F;
+            uint DeviceKey &#x3D; (uint)(new Random()).Next(int.MaxValue);
+            &#x2F;* In this sample all cameras belong to the same group. *&#x2F;
+            const uint GroupKey &#x3D; 0x24;
+            PYLON_DEVICE_HANDLE[] hDev &#x3D; new PYLON_DEVICE_HANDLE[MAX_NUM_DEVICES];        &#x2F;* Handles for the pylon devices. *&#x2F;
+            for (int deviceIndex &#x3D; 0; deviceIndex &lt; MAX_NUM_DEVICES; ++deviceIndex)
+            &#123;
+                hDev[deviceIndex] &#x3D; new PYLON_DEVICE_HANDLE();
+            &#125;
+            try
+            &#123;
+                uint numDevicesEnumerated;    &#x2F;* Number of the devices connected to this PC. *&#x2F;
+                uint numDevicesToUse;         &#x2F;* Number of the devices to use in this sample. *&#x2F;
+                bool isAvail;                 &#x2F;* Used for checking feature availability. *&#x2F;
+                bool isReady;                 &#x2F;* Used as an output parameter. *&#x2F;
+                int i;                        &#x2F;* Counter. *&#x2F;
+                uint deviceIndex;             &#x2F;* Index of device used in the following variables. *&#x2F;
+                PYLON_WAITOBJECTS_HANDLE wos; &#x2F;* Wait objects. *&#x2F;
+
+                &#x2F;* These are camera specific variables: *&#x2F;
+                PYLON_STREAMGRABBER_HANDLE[] hGrabber &#x3D; new PYLON_STREAMGRABBER_HANDLE[MAX_NUM_DEVICES]; &#x2F;* Handle for the pylon stream grabber. *&#x2F;
+                PYLON_WAITOBJECT_HANDLE[]    hWait &#x3D; new PYLON_WAITOBJECT_HANDLE[MAX_NUM_DEVICES];       &#x2F;* Handle used for waiting for a grab to be finished. *&#x2F;
+                uint[]                       payloadSize &#x3D; new uint[MAX_NUM_DEVICES];                    &#x2F;* Size of an image frame in bytes. *&#x2F;
+                uint[]                       nStreams &#x3D; new uint[MAX_NUM_DEVICES];                       &#x2F;* The number of streams provided by the device. *&#x2F;
+                PYLON_STREAMBUFFER_HANDLE[]  hBuffer &#x3D; new PYLON_STREAMBUFFER_HANDLE[MAX_NUM_DEVICES];
+                PylonBuffer&lt;Byte&gt;[]          buffer &#x3D; new PylonBuffer&lt;Byte&gt;[MAX_NUM_DEVICES];
+#if DEBUG
+                &#x2F;* This is a special debug setting needed only for GigE cameras.
+                See &#39;Building Applications with pylon&#39; in the Programmer&#39;s Guide. *&#x2F;
+                Environment.SetEnvironmentVariable(&quot;PYLON_GIGE_HEARTBEAT&quot;, &quot;300000&quot; &#x2F;*ms*&#x2F;);
+#endif
+                &#x2F;* Before using any pylon methods, the pylon runtime must be initialized. *&#x2F;
+                Pylon.Initialize();
+                &#x2F;* Enumerate all camera devices. You must call
+                PylonEnumerateDevices() before creating a device. *&#x2F;
+                numDevicesEnumerated &#x3D; Pylon.EnumerateDevices();
+                if (numDevicesEnumerated &#x3D;&#x3D; 0)
+                &#123;
+                    Pylon.Terminate();
+
+                    Console.Error.WriteLine(&quot;No devices found!&quot;);
+                    Console.Error.WriteLine(&quot;\nPress enter to exit.&quot;);
+                    Console.ReadLine();
+                    return;
+                &#125;
+                &#x2F;* Create wait objects. This must be done outside of the loop. *&#x2F;
+                wos &#x3D; Pylon.WaitObjectsCreate();
+                &#x2F;* Open cameras and set parameter *&#x2F;
+                deviceIndex &#x3D; 0;
+                for (uint enumeratedDeviceIndex &#x3D; 0; enumeratedDeviceIndex &lt; numDevicesEnumerated; ++enumeratedDeviceIndex)
+                &#123;
+                    &#x2F;* only open GigE devices *&#x2F;
+                    PYLON_DEVICE_INFO_HANDLE hDI &#x3D; Pylon.GetDeviceInfoHandle(enumeratedDeviceIndex);
+                    if (Pylon.DeviceInfoGetPropertyValueByName(hDI, Pylon.cPylonDeviceInfoDeviceClassKey) !&#x3D; &quot;BaslerGigE&quot;)
+                    &#123;
+                        continue;
+                    &#125;
+                    &#x2F;* Get handles for the devices. *&#x2F;
+                    hDev[deviceIndex] &#x3D; Pylon.CreateDeviceByIndex((uint)enumeratedDeviceIndex);
+                    &#x2F;* Before using the device, it must be opened. Open it for configuring
+                    parameters and for grabbing images. *&#x2F;
+                    Pylon.DeviceOpen(hDev[deviceIndex], Pylon.cPylonAccessModeControl | Pylon.cPylonAccessModeStream);
+                    &#x2F;* Print out the name of the camera we are using. *&#x2F;
+                    Console.WriteLine(&quot;Using camera &#39;&#123;0&#125;&#39;&quot;, Pylon.DeviceInfoGetPropertyValueByName(hDI, Pylon.cPylonDeviceInfoModelNameKey));
+                    isAvail &#x3D; Pylon.DeviceFeatureIsReadable(hDev[deviceIndex], &quot;ActionControl&quot;);
+                    if (!isAvail)
+                    &#123;
+                        throw new Exception(&quot;Device doesn&#39;t support the Action Command&quot;);
+                    &#125;
+                    &#x2F;* Configure the first action *&#x2F;
+                    Pylon.DeviceSetIntegerFeature(hDev[deviceIndex], &quot;ActionSelector&quot;, 1);
+                    Pylon.DeviceSetIntegerFeature(hDev[deviceIndex], &quot;ActionDeviceKey&quot;, DeviceKey);
+                    Pylon.DeviceSetIntegerFeature(hDev[deviceIndex], &quot;ActionGroupKey&quot;, GroupKey);
+                    Pylon.DeviceSetIntegerFeature(hDev[deviceIndex], &quot;ActionGroupMask&quot;, AllGroupMask);
+                    &#x2F;* Set the pixel format to Mono8, where gray values will be output as 8 bit values for each pixel. *&#x2F;
+                    &#x2F;* ... Check first to see if the device supports the Mono8 format. *&#x2F;
+                    isAvail &#x3D; Pylon.DeviceFeatureIsAvailable(hDev[deviceIndex], &quot;EnumEntry_PixelFormat_Mono8&quot;);
+                    if (!isAvail)
+                    &#123;
+                        &#x2F;* Feature is not available. *&#x2F;
+                        throw new Exception(&quot;Device doesn&#39;t support the Mono8 pixel format.&quot;);
+                    &#125;
+                    &#x2F;* ... Set the pixel format to Mono8. *&#x2F;
+                    Pylon.DeviceFeatureFromString(hDev[deviceIndex], &quot;PixelFormat&quot;, &quot;Mono8&quot;);
+                    &#x2F;* Disable acquisition start trigger if available *&#x2F;
+                    isAvail &#x3D; Pylon.DeviceFeatureIsAvailable(hDev[deviceIndex], &quot;EnumEntry_TriggerSelector_AcquisitionStart&quot;);
+                    if (isAvail)
+                    &#123;
+                        Pylon.DeviceFeatureFromString(hDev[deviceIndex], &quot;TriggerSelector&quot;, &quot;AcquisitionStart&quot;);
+                        Pylon.DeviceFeatureFromString(hDev[deviceIndex], &quot;TriggerMode&quot;, &quot;Off&quot;);
+                    &#125;
+                    &#x2F;* Disable line1 trigger if available *&#x2F;
+                    isAvail &#x3D; Pylon.DeviceFeatureIsAvailable(hDev[deviceIndex], &quot;EnumEntry_TriggerSelector_Line1&quot;);
+                    if (isAvail)
+                    &#123;
+                        Pylon.DeviceFeatureFromString(hDev[deviceIndex], &quot;TriggerSelector&quot;, &quot;Line1&quot;);
+                        Pylon.DeviceFeatureFromString(hDev[deviceIndex], &quot;TriggerMode&quot;, &quot;Off&quot;);
+                    &#125;
+                    &#x2F;* Enable frame start trigger with first action *&#x2F;
+                    Pylon.DeviceFeatureFromString(hDev[deviceIndex], &quot;TriggerSelector&quot;, &quot;FrameStart&quot;);
+                    Pylon.DeviceFeatureFromString(hDev[deviceIndex], &quot;TriggerMode&quot;, &quot;On&quot;);
+                    Pylon.DeviceFeatureFromString(hDev[deviceIndex], &quot;TriggerSource&quot;, &quot;Action1&quot;);
+                    &#x2F;* For GigE cameras, we recommend increasing the packet size for better
+                        performance. When the network adapter supports jumbo frames, set the packet
+                        size to a value &gt; 1500, e.g., to 8192. In this sample, we only set the packet size
+                        to 1500.
+                        We also set the Inter-Packet and the Frame Transmission delay
+                        so the switch can line up packets better.
+                    *&#x2F;
+                    Pylon.DeviceSetIntegerFeature(hDev[deviceIndex], &quot;GevSCPSPacketSize&quot;, GIGE_PACKET_SIZE);
+                    Pylon.DeviceSetIntegerFeature(hDev[deviceIndex], &quot;GevSCPD&quot;, (GIGE_PACKET_SIZE + GIGE_PROTOCOL_OVERHEAD) * (MAX_NUM_DEVICES - 1));
+                    Pylon.DeviceSetIntegerFeature(hDev[deviceIndex], &quot;GevSCFTD&quot;, (GIGE_PACKET_SIZE + GIGE_PROTOCOL_OVERHEAD) * deviceIndex);
+                    &#x2F;* one device opened *&#x2F;
+                    ++deviceIndex;
+                &#125;</code></pre>
+<h3 id="显示设备名称"><a href="#显示设备名称" class="headerlink" title="显示设备名称"></a>显示设备名称</h3><p> 显示设备的名称</p>
+<pre class="language-none"><code class="language-none">&#x2F;* Print out the name of the camera we are using. *&#x2F;
+               &#123;
+                   bool isReadable;
+                   isReadable &#x3D; Pylon.DeviceFeatureIsReadable(hDev, &quot;DeviceModelName&quot;);
+                   if (isReadable)
+                   &#123;
+                       string name &#x3D; Pylon.DeviceFeatureToString(hDev, &quot;DeviceModelName&quot;);
+                       Console.WriteLine(&quot;Using camera &#123;0&#125;&quot;, name);
+                   &#125;
+               &#125;</code></pre>
+<h3 id="设置拍摄图片模式"><a href="#设置拍摄图片模式" class="headerlink" title="设置拍摄图片模式"></a>设置拍摄图片模式</h3><pre class="language-none"><code class="language-none">&#x2F;* Set the pixel format to Mono8, where gray values will be output as 8 bit values for each pixel. *&#x2F;
+                &#x2F;* ... Check first to see if the device supports the Mono8 format. *&#x2F;
+                isAvail &#x3D; Pylon.DeviceFeatureIsAvailable(hDev, &quot;EnumEntry_PixelFormat_Mono8&quot;);
+                if (!isAvail)
+                &#123;
+                    &#x2F;* Feature is not available. *&#x2F;
+                    throw new Exception(&quot;Device doesn&#39;t support the Mono8 pixel format.&quot;);
+                &#125;
+                &#x2F;* ... Set the pixel format to Mono8. *&#x2F;
+                Pylon.DeviceFeatureFromString(hDev, &quot;PixelFormat&quot;, &quot;Mono8&quot;);
+</code></pre>
+<h3 id="设置拍摄采集模式"><a href="#设置拍摄采集模式" class="headerlink" title="设置拍摄采集模式"></a>设置拍摄采集模式</h3><pre class="language-none"><code class="language-none">&#x2F;* Check the available camera trigger mode(s) to select the appropriate one: acquisition start trigger mode (used by previous cameras;
+                do not confuse with acquisition start command) or frame start trigger mode (equivalent to previous acquisition start trigger mode). *&#x2F;
+                isAvailAcquisitionStart &#x3D; Pylon.DeviceFeatureIsAvailable(hDev, &quot;EnumEntry_TriggerSelector_AcquisitionStart&quot;);
+                isAvailFrameStart &#x3D; Pylon.DeviceFeatureIsAvailable(hDev, &quot;EnumEntry_TriggerSelector_FrameStart&quot;);
+                &#x2F;* Check to see if the camera implements the acquisition start trigger mode only.
+                优先是frame start （此时只有在半双工的时候才能打开frame burst帧突发），其次选择Acquisition Start。两种模式不能并存
+                *&#x2F;
+                if (isAvailAcquisitionStart &amp;&amp; !isAvailFrameStart)
+                &#123;
+                    &#x2F;* Camera uses the acquisition start trigger as the only trigger mode. *&#x2F;
+                    Pylon.DeviceFeatureFromString(hDev, &quot;TriggerSelector&quot;, &quot;AcquisitionStart&quot;);
+                    Pylon.DeviceFeatureFromString(hDev, &quot;TriggerMode&quot;, &quot;On&quot;);
+                    triggerSelectorValue &#x3D; &quot;AcquisitionStart&quot;;
+                &#125;
+                else
+                &#123;
+                    &#x2F;* Camera may have the acquisition start trigger mode and the frame start trigger mode implemented.
+                    In this case, the acquisition trigger mode must be switched off. *&#x2F;
+                    if (isAvailAcquisitionStart)
+                    &#123;
+                        Pylon.DeviceFeatureFromString(hDev, &quot;TriggerSelector&quot;, &quot;AcquisitionStart&quot;);
+                        Pylon.DeviceFeatureFromString(hDev, &quot;TriggerMode&quot;, &quot;Off&quot;);
+                    &#125;
+                    &#x2F;* Disable frame burst start trigger if available *&#x2F;
+                    isAvail &#x3D; Pylon.DeviceFeatureIsAvailable(hDev, &quot;EnumEntry_TriggerSelector_FrameBurstStart&quot;);
+                    if (isAvail)
+                    &#123;
+                        Pylon.DeviceFeatureFromString(hDev, &quot;TriggerSelector&quot;, &quot;FrameBurstStart&quot;);
+                        Pylon.DeviceFeatureFromString(hDev, &quot;TriggerMode&quot;, &quot;Off&quot;);
+                    &#125;
+
+                    &#x2F;* To trigger each single frame by software or external hardware trigger: Enable the frame start trigger mode. *&#x2F;
+                    Pylon.DeviceFeatureFromString(hDev, &quot;TriggerSelector&quot;, &quot;FrameStart&quot;);
+                    Pylon.DeviceFeatureFromString(hDev, &quot;TriggerMode&quot;, &quot;On&quot;);
+                &#125;
+                &#x2F;* Note: the trigger selector must be set to the appropriate trigger mode
+                before setting the trigger source or issuing software triggers.
+                Frame start trigger mode for newer cameras, acquisition start trigger mode for previous cameras. 
+                软件触发*&#x2F;
+                Pylon.DeviceFeatureFromString(hDev, &quot;TriggerSelector&quot;, triggerSelectorValue);
+                &#x2F;* Enable software triggering. 
+                持续采集*&#x2F;
+                &#x2F;* ... Select the software trigger as the trigger source. *&#x2F;
+                Pylon.DeviceFeatureFromString(hDev, &quot;TriggerSource&quot;, &quot;Software&quot;);
+                &#x2F;* When using software triggering, the Continuous frame mode should be used. Once
+                   acquisition is started, the camera sends one image each time a software trigger is
+                   issued. *&#x2F;
+                Pylon.DeviceFeatureFromString(hDev, &quot;AcquisitionMode&quot;, &quot;Continuous&quot;);</code></pre>
+<h3 id="设置拍摄数据包大小"><a href="#设置拍摄数据包大小" class="headerlink" title="设置拍摄数据包大小"></a>设置拍摄数据包大小</h3><pre class="language-none"><code class="language-none">&#x2F;* For GigE cameras, we recommend increasing the packet size for better
+   performance. If the network adapter supports jumbo frames, set the packet
+   size to a value &gt; 1500, e.g., to 8192. In this sample, we only set the packet size
+   to 1500. *&#x2F;
+&#x2F;* ... Check first to see if the GigE camera packet size parameter is supported and if it is writable. *&#x2F;
+isAvail &#x3D; Pylon.DeviceFeatureIsWritable(hDev, &quot;GevSCPSPacketSize&quot;);
+if (isAvail)
+&#123;
+    &#x2F;* ... The device supports the packet size feature. Set a value. *&#x2F;
+    Pylon.DeviceSetIntegerFeature(hDev, &quot;GevSCPSPacketSize&quot;, 1500);
+&#125;</code></pre>
+<h3 id="设置拍摄块"><a href="#设置拍摄块" class="headerlink" title="设置拍摄块"></a>设置拍摄块</h3><p>摄像机可以生成关于每个图像的特定信息，例如帧</p>
+<p>计数器、时间戳和CRC校验和，作为数据“块”附加到图像数据。此示例演示了如何启用块功能，以及如何获取</p>
+<p>以及如何处理附加数据。当相机处于块模式时，它传输数据块</p>
+<p>其被划分成块。第一块总是图像数据。当块特征被启用时，</p>
+<p>图像数据块之后是包含由块特征生成的信息的块。<br>本示例还演示了如何使用软件触发器。使用两个缓冲器。一旦缓冲器被填充，</p>
+<p>在处理接收到的缓冲器之前触发下一帧的获取。这种方法允许：</p>
+<p>在前一图像的处理进行的同时执行图像获取。</p>
+<pre class="language-none"><code class="language-none">&#x2F;* Before enabling individual chunks, the chunk mode in general must be activated. *&#x2F;
+isAvail &#x3D; Pylon.DeviceFeatureIsWritable(hDev, &quot;ChunkModeActive&quot;);
+if (!isAvail)
+&#123;
+    throw new Exception(&quot;The device doesn&#39;t support the chunk mode.&quot;);
+&#125;
+&#x2F;* Activate the chunk mode. *&#x2F;
+Pylon.DeviceSetBooleanFeature(hDev, &quot;ChunkModeActive&quot;, true);
+&#x2F;* Enable some individual chunks... *&#x2F;
+&#x2F;* ... The frame counter chunk feature. *&#x2F;
+&#x2F;* Is the chunk feature available? *&#x2F;
+isAvail &#x3D; Pylon.DeviceFeatureIsAvailable(hDev, &quot;EnumEntry_ChunkSelector_Framecounter&quot;);
+if (isAvail)
+&#123;
+    &#x2F;* Select the frame counter chunk feature. *&#x2F;
+    Pylon.DeviceFeatureFromString(hDev, &quot;ChunkSelector&quot;, &quot;Framecounter&quot;);
+    &#x2F;* Can the chunk feature be activated? *&#x2F;
+    isAvail &#x3D; Pylon.DeviceFeatureIsWritable(hDev, &quot;ChunkEnable&quot;);
+    if (isAvail)
+    &#123;
+        &#x2F;* Activate the chunk feature. *&#x2F;
+        Pylon.DeviceSetBooleanFeature(hDev, &quot;ChunkEnable&quot;, true);
+    &#125;
+&#125;</code></pre>
+<h4 id="设置块chunks的内容"><a href="#设置块chunks的内容" class="headerlink" title="设置块chunks的内容"></a>设置块chunks的内容</h4><pre class="language-none"><code class="language-none">&#x2F;&#x2F;设置循环冗余校验（Cyclic Redundancy Check， CRC）是一种根据网络数据包或计算机文件等数据产生简短固定位数校验码的一种信道编码技术，
+主要用来检测或校验数据传输或者保存后可能出现的错误。它是利用除法及余数的原理来作错误侦测的。
+                &#x2F;* ... The CRC checksum chunk feature. *&#x2F;
+                &#x2F;*  Note: Enabling the CRC checksum chunk feature is not a prerequisite for using
+                   chunks. Chunks can also be handled when the CRC checksum chunk feature is disabled. *&#x2F;
+                isAvail &#x3D; Pylon.DeviceFeatureIsAvailable(hDev, &quot;EnumEntry_ChunkSelector_PayloadCRC16&quot;);
+                if (isAvail)
+                &#123;
+                    &#x2F;* Select the CRC checksum chunk feature. *&#x2F;
+                    Pylon.DeviceFeatureFromString(hDev, &quot;ChunkSelector&quot;, &quot;PayloadCRC16&quot;);
+                    &#x2F;* Can the chunk feature be activated? *&#x2F;
+                    isAvail &#x3D; Pylon.DeviceFeatureIsWritable(hDev, &quot;ChunkEnable&quot;);
+                    if (isAvail)
+                    &#123;
+                        &#x2F;* Activate the chunk feature. *&#x2F;
+                        Pylon.DeviceSetBooleanFeature(hDev, &quot;ChunkEnable&quot;, true);
+                    &#125;
+                &#125;</code></pre>
+<h4 id="设置块解析器chunk-parser"><a href="#设置块解析器chunk-parser" class="headerlink" title="设置块解析器chunk parser"></a>设置块解析器chunk parser</h4><pre class="language-none"><code class="language-none">&#x2F;* The data block containing the image chunk and the other chunks has a self-descriptive layout.
+   A chunk parser is used to extract the appended chunk data from the grabbed image frame.
+   Create a chunk parser. *&#x2F;
+hChunkParser &#x3D; Pylon.DeviceCreateChunkParser(hDev);
+if (!hChunkParser.IsValid)
+&#123;
+    &#x2F;* The transport layer doesn&#39;t provide a chunk parser. *&#x2F;
+    throw new Exception(&quot;No chunk parser available.&quot;);
+&#125;</code></pre>
+<h4 id="设置并分配拍摄流与缓冲区"><a href="#设置并分配拍摄流与缓冲区" class="headerlink" title="设置并分配拍摄流与缓冲区"></a>设置并分配拍摄流与缓冲区</h4><pre class="language-none"><code class="language-none">&#x2F;* Image grabbing is done using a stream grabber.
+                  A device may be able to provide different streams. A separate stream grabber must
+                  be used for each stream. In this sample, we create a stream grabber for the default
+                  stream, i.e., the first stream ( index &#x3D;&#x3D; 0 ).
+                  *&#x2F;
+                &#x2F;* Get the number of streams supported by the device and the transport layer. *&#x2F;
+                nStreams &#x3D; Pylon.DeviceGetNumStreamGrabberChannels(hDev);
+                if (nStreams &lt; 1)
+                &#123;
+                    throw new Exception(&quot;The transport layer doesn&#39;t support image streams.&quot;);
+                &#125;
+                &#x2F;* Create and open a stream grabber for the first channel. *&#x2F;
+                hGrabber &#x3D; Pylon.DeviceGetStreamGrabber(hDev, 0);
+                Pylon.StreamGrabberOpen(hGrabber);
+                &#x2F;* Get a handle for the stream grabber&#39;s wait object. The wait object
+                   allows waiting for buffers to be filled with grabbed data. *&#x2F;
+                hWait &#x3D; Pylon.StreamGrabberGetWaitObject(hGrabber);
+                &#x2F;* Determine the required size of the grab buffer. Since activating chunks will increase the
+                   payload size and thus the required buffer size, do this after enabling the chunks. *&#x2F;
+                payloadSize &#x3D; checked((uint)Pylon.DeviceGetIntegerFeature(hDev, &quot;PayloadSize&quot;));
+                &#x2F;* We must tell the stream grabber the number and size of the buffers
+                    we are using. *&#x2F;
+                &#x2F;* .. We will not use more than NUM_BUFFERS for grabbing. *&#x2F;
+                Pylon.StreamGrabberSetMaxNumBuffer(hGrabber, NUM_BUFFERS);
+                &#x2F;* .. We will not use buffers bigger than payloadSize bytes. *&#x2F;
+                Pylon.StreamGrabberSetMaxBufferSize(hGrabber, payloadSize);
+                &#x2F;*  Allocate the resources required for grabbing. After this, critical parameters
+                    that impact the payload size must not be changed until FinishGrab() is called. *&#x2F;
+                Pylon.StreamGrabberPrepareGrab(hGrabber);
+                 &#x2F;*
+                将缓冲区输入流抓取器的输入队列。对于每个缓冲区，API允许传递整数作为附加上下文信息。
+                抓取完成后，该整数将返回不变。在我们的示例中，我们使用缓冲区的索引作为上下文信息。
+                Before using the buffers for grabbing, they must be registered at
+                   the stream grabber. For each registered buffer, a buffer handle
+                   is returned. After registering, these handles are used instead of the
+                   buffer objects pointers. The buffer objects are held in a dictionary,
+                   that provides access to the buffer using a handle as key.
+                 *&#x2F;
+                buffers &#x3D; new Dictionary&lt;PYLON_STREAMBUFFER_HANDLE, PylonBuffer&lt;Byte&gt;&gt;();
+                for (i &#x3D; 0; i &lt; NUM_BUFFERS; ++i)
+                &#123;
+                    PylonBuffer&lt;Byte&gt; buffer &#x3D; new PylonBuffer&lt;byte&gt;(payloadSize, true);
+                    PYLON_STREAMBUFFER_HANDLE handle &#x3D; Pylon.StreamGrabberRegisterBuffer(hGrabber, ref buffer);
+                    buffers.Add(handle, buffer);
+                &#125;
+                &#x2F;* Feed the buffers into the stream grabber&#39;s input queue. For each buffer, the API
+                   allows passing in an integer as additional context information. This integer
+                   will be returned unchanged when the grab is finished. In our example, we use the index of the
+                   buffer as context information. *&#x2F;
+                i &#x3D; 0;
+                foreach (KeyValuePair&lt;PYLON_STREAMBUFFER_HANDLE, PylonBuffer&lt;Byte&gt;&gt; pair in buffers)
+                &#123;
+                    Pylon.StreamGrabberQueueBuffer(hGrabber, pair.Key, i++);
+                &#125;</code></pre>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">xudingxie</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://2508838014.github.io/2022/09/05/Basler%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0/">https://2508838014.github.io/2022/09/05/Basler%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">xudingxie</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/basler/">
+                                    <span class="chip bg-color">basler</span>
+                                </a>
+                            
+                                <a href="/tags/NET/">
+                                    <span class="chip bg-color">.NET</span>
+                                </a>
+                            
+                                <a href="/tags/c/">
+                                    <span class="chip bg-color">c#</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
+                                    <span class="chip bg-color">基础语法</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '36AzJEmLZoAGn8VYLoHp1NE4-gzGzoHsz',
+        appKey: '30SwUM2GiWXVLF5iu6bveyxI',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/09/05/C-%E7%BB%A7%E6%89%BF%E5%AD%A6%E4%B9%A0-%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97%EF%BC%882%EF%BC%89/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="C#继承学习-学习日志（2）">
+                        
+                        <span class="card-title">C#继承学习-学习日志（2）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-09-05
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C/" class="post-category">
+                                    C#
+                                </a>
+                            
+                            <a href="/categories/C/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    日常学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C#</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">基础学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%B1%BB/">
+                        <span class="chip bg-color">类</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/09/04/C-%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.png" class="responsive-img" alt="C#基础学习-1">
+                        
+                        <span class="card-title">C#基础学习-1</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/C/" class="post-category">
+                                    C#
+                                </a>
+                            
+                            <a href="/categories/C/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    日常学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C#</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">基础学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%B1%BB/">
+                        <span class="chip bg-color">类</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2023</span>
+            
+            <span id="year">2022</span>
+            <a href="/about" target="_blank">xudingxie</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2022";
+                    var startMonth = "8";
+                    var startDate = "22";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2508838014@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2508838014" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2508838014" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+
+<!-- 背景动态线条-->
+<!--  <script src="https://cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script> -->
+
+
+    
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+	
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
