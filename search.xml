@@ -4,6 +4,394 @@
   
     
     <entry>
+      <title>WPF拷贝项目引用全部失效</title>
+      <link href="/2023/10/18/WPF%E6%8B%B7%E8%B4%9D%E9%A1%B9%E7%9B%AE%E5%BC%95%E7%94%A8%E5%85%A8%E9%83%A8%E5%A4%B1%E6%95%88/"/>
+      <url>/2023/10/18/WPF%E6%8B%B7%E8%B4%9D%E9%A1%B9%E7%9B%AE%E5%BC%95%E7%94%A8%E5%85%A8%E9%83%A8%E5%A4%B1%E6%95%88/</url>
+      
+        <content type="html"><![CDATA[<h1 id="WPF项目拷贝引用全部失效"><a href="#WPF项目拷贝引用全部失效" class="headerlink" title="WPF项目拷贝引用全部失效"></a>WPF项目拷贝引用全部失效</h1><p>今天接手同事的项目，运行花了一定的时间。记录一下中间踩坑的记录</p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>打开压缩文件夹，没有sln文件，直接通过csproj文件打开项目。发现无法运行，提示各种环境都没有。<br>打开引用，发现所有引用全部黄色警告提示，判断所有引用失效。</p><h3 id="准备首先是Nuget包管理无法打开，点击无反应。"><a href="#准备首先是Nuget包管理无法打开，点击无反应。" class="headerlink" title="准备首先是Nuget包管理无法打开，点击无反应。"></a>准备首先是Nuget包管理无法打开，点击无反应。</h3><p>因为需要Sln文件之后才可以NuGet管理，所以应该先创建，所以可以先退出项目，会提示修改出一个sln文件。<br>点击确定，重新通过sln文件打开项目。发现Nuget包管理可以正常弹出界面。</p><h3 id="已下载，但是还是提示没有找到或配置"><a href="#已下载，但是还是提示没有找到或配置" class="headerlink" title="已下载，但是还是提示没有找到或配置"></a>已下载，但是还是提示没有找到或配置</h3><p>Nuget包会自动提示下载那些已经配置的包，下载完成后还是提示，重新启动项目还是会报错。<br>错误提示类似这样，开头就是提示包没有。<br><a href="https://imgse.com/i/p9lEmLD"><img src="https://s1.ax1x.com/2023/04/28/p9lEmLD.md.png" alt="p9lEmLD.md.png"></a></p><p>怀疑是NUGET的预编译的大坑。编译的记录报错下来了，所以我们需要重新生成。<br>打开csproj项目，删除文件内下面所有内容：</p><pre class="language-none"><code class="language-none">&lt;Import Project&#x3D;&quot;..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets&quot; Condition&#x3D;&quot;Exists(&#39;..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets&#39;)&quot; &#x2F;&gt; &lt;Target Name&#x3D;&quot;EnsureNuGetPackageBuildImports&quot; BeforeTargets&#x3D;&quot;PrepareForBuild&quot;&gt;   &lt;PropertyGroup&gt;     &lt;ErrorText&gt;这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http:&#x2F;&#x2F;go.microsoft.com&#x2F;fwlink&#x2F;?LinkID&#x3D;322105。缺少的文件是 &#123;0&#125;。&lt;&#x2F;ErrorText&gt;   &lt;&#x2F;PropertyGroup&gt;   &lt;Error Condition&#x3D;&quot;!Exists(&#39;..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets&#39;)&quot; Text&#x3D;&quot;$([System.String]::Format(&#39;$(ErrorText)&#39;, &#39;..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets&#39;))&quot; &#x2F;&gt; &lt;&#x2F;Target&gt;</code></pre><p>删除完毕，重新打开。问题解决。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C# </category>
+          
+          <category> 日常学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> 基础学习 </tag>
+            
+            <tag> 知错就改 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>win服务-知错就改</title>
+      <link href="/2023/10/18/win%E6%9C%8D%E5%8A%A1-%E7%9F%A5%E9%94%99%E5%B0%B1%E6%94%B9/"/>
+      <url>/2023/10/18/win%E6%9C%8D%E5%8A%A1-%E7%9F%A5%E9%94%99%E5%B0%B1%E6%94%B9/</url>
+      
+        <content type="html"><![CDATA[<h1 id="win服务的坑"><a href="#win服务的坑" class="headerlink" title="win服务的坑"></a>win服务的坑</h1><h2 id="1-系统错误5，拒绝访问"><a href="#1-系统错误5，拒绝访问" class="headerlink" title="1 系统错误5，拒绝访问"></a>1 系统错误5，拒绝访问</h2><p>已经管理员依旧现实拒绝访问5<br><a href="https://imgse.com/i/p9BjHUK"><img src="https://s1.ax1x.com/2023/05/10/p9BjHUK.md.png" alt="p9BjHUK.md.png"></a>  </p><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol><li>在任务管理器中选择对应的服务，右键选择打开服务。找到对应的服务<br><a href="https://imgse.com/i/p9Bjjvd"><img src="https://s1.ax1x.com/2023/05/10/p9Bjjvd.png" alt="p9Bjjvd.png"></a>  </li><li>请检查登陆，是不是本地用户登陆。请选择本地系统账户。<br><a href="https://imgse.com/i/p9Bvmbq"><img src="https://s1.ax1x.com/2023/05/10/p9Bvmbq.png" alt="p9Bvmbq.png"></a><br>这个时候重新启动服务执行成功</li></ol><pre class="language-cmd" data-language="cmd"><code class="language-cmd">net start 服务名称</code></pre><p>这是临时补救方案，重新安装还是会出现问题。<br>下面是永久方案。<br>在项目中点击ProjectInstaller.cs<br>点击serviceProcessInstaller1,属性页中把Account修改成为LocalSystem<br><a href="https://imgse.com/i/p9BxQeI"><img src="https://s1.ax1x.com/2023/05/10/p9BxQeI.png" alt="p9BxQeI.png"></a>  </p><ol start="3"><li>如果步骤2在报错的时候还是提示错误，右键选择属性，把禁用修改成为自动或者手动<br><a href="https://imgse.com/i/p9BvA2Q"><img src="https://s1.ax1x.com/2023/05/10/p9BvA2Q.png" alt="p9BvA2Q.png"></a></li></ol><h2 id="2-系统错误，无法启动服务，原因可能是已经被禁用或与其相关联的设备没有启动。"><a href="#2-系统错误，无法启动服务，原因可能是已经被禁用或与其相关联的设备没有启动。" class="headerlink" title="2 系统错误，无法启动服务，原因可能是已经被禁用或与其相关联的设备没有启动。"></a>2 系统错误，无法启动服务，原因可能是已经被禁用或与其相关联的设备没有启动。</h2><p>卸载安装之后，提示如下错误<br><a href="https://imgse.com/i/p9Bv8xJ"><img src="https://s1.ax1x.com/2023/05/10/p9Bv8xJ.md.png" alt="p9Bv8xJ.md.png"></a><br>但是查看依存关系，发现并没有任何依存。<br><a href="https://imgse.com/i/p9Bv0PO"><img src="https://s1.ax1x.com/2023/05/10/p9Bv0PO.png" alt="p9Bv0PO.png"></a><br>可能是你卸载了，但是没有死透。<br>我就是，之前有打开任务管理器此时窗口A，进入服务界面，右键打开服务了，此时打开新窗口B。<br>查看服务，然后窗口B最小化。<br>此时卸载服务a，卸载流程很顺利，但是此时把最小化的窗口B打开发现服务a还在，右键刷新服务a也在。<br>此时应该关闭这个窗口B，重新安装即可。  </p><h2 id="3-如果服务的stop有问题，就无法关闭服务"><a href="#3-如果服务的stop有问题，就无法关闭服务" class="headerlink" title="3 如果服务的stop有问题，就无法关闭服务"></a>3 如果服务的stop有问题，就无法关闭服务</h2><p>当服务的关闭的代码运行会出现错误，这个时候服务就无法通过手动或者直接的关闭方案。只能强行关闭。  </p><pre class="language-cmd" data-language="cmd"><code class="language-cmd">taskkill &#x2F;f &#x2F;pid pidNum</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> C# </category>
+          
+          <category> 日常学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> 基础学习 </tag>
+            
+            <tag> 知错就改 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CSharp中事件，action等讲解</title>
+      <link href="/2023/10/18/CSharp%E4%B8%AD%E4%BA%8B%E4%BB%B6%EF%BC%8Caction%E7%AD%89%E8%AE%B2%E8%A7%A3/"/>
+      <url>/2023/10/18/CSharp%E4%B8%AD%E4%BA%8B%E4%BB%B6%EF%BC%8Caction%E7%AD%89%E8%AE%B2%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<h1 id="delegate-event-Action-Func关系讲解"><a href="#delegate-event-Action-Func关系讲解" class="headerlink" title="delegate,event,Action,Func关系讲解"></a>delegate,event,Action,Func关系讲解</h1><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ul><li><p>delegate是一切的基础。</p></li><li><p>event是实践中优化的使用，比delegate多了点限制。现在常用：比如winform中的内容。</p></li><li><p>Action，Func是delegate的更加的简写方案。</p></li></ul><h2 id="delegate"><a href="#delegate" class="headerlink" title="delegate"></a>delegate</h2><p>这个定义的是一个委托类型。也相当于方法的类型（指定了输入输出的内容）。</p><p>delegate用法目前两种：</p><ol><li>函数泛型</li><li>订阅发布</li></ol><p>理解下来其实都是一样的做法，它们都是订阅。这个函数类型其实可以理解成为一样的。</p><blockquote><p>前者是把声明出来的delegate作为函数的类型来使用。</p><p>后者是把声明出来的方法类型再次实例化。具体到某种方法A，开放A出来给所有程序调用去订阅。订阅的要求就是方法B必须与方法A具有相同的输入输出。</p></blockquote><h3 id="函数泛型"><a href="#函数泛型" class="headerlink" title="函数泛型"></a>函数泛型</h3><p>可以指定某种方法的使用以及返回值</p><p>定义泛型方法和相对应的方法</p><pre class="language-C#" data-language="C#"><code class="language-C#">class Cat&#123;    public delegate double MathFunction(double x, double y);    public double CatDie(double oldVal, double currentVal)    &#123;        Console.WriteLine(&quot;cat die&quot;);        return oldVal - currentVal;    &#125;    public double CatBirth(double current, double newVal)    &#123;        Console.WriteLine(&quot;cat give birth&quot;);        return newVal + current;    &#125;    public void GetActualCatNum(MathFunction mathFunction,double x,double y)    &#123;        var value&#x3D;mathFunction(x,y);        Console.WriteLine(&quot;current value:&quot;+value);    &#125;&#125;</code></pre><p>在另外的类中使用</p><pre class="language-C#" data-language="C#"><code class="language-C#">Cat cat &#x3D; new Cat();cat.GetActualCatNum(cat.CatDie, 12, 3);Console.ReadLine();</code></pre><h3 id="订阅发布"><a href="#订阅发布" class="headerlink" title="订阅发布"></a>订阅发布</h3><p>工作中经常使用的对象：订阅一个内容。让其他方法去接收订阅的消息。</p><p>在多线程的环境中非常常见。</p><h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><p>演示一个简单订阅发布模式；</p><pre class="language-C#" data-language="C#"><code class="language-C#">class Cat&#123;    public delegate double MathFunction(double x, double y);    public MathFunction CatChange;&#125;</code></pre><p>订阅者：</p><pre class="language-C#" data-language="C#"><code class="language-C#">class Mouse&#123;    public double CatAlarm(double x,double y)    &#123;        Console.WriteLine(&quot;Cat number change&quot;);        return 0;    &#125;&#125;</code></pre><p>订阅与发生地点：</p><pre class="language-C#" data-language="C#"><code class="language-C#">Cat cat &#x3D; new Cat();Mouse mouse &#x3D; new Mouse();cat.CatChange +&#x3D; mouse.CatAlarm;cat.CatChange.Invoke(28,4);</code></pre><blockquote><p>对案例进行分析。在cat中创建一个发布者，mouse创建了一个订阅者。在第三方进行订阅，并触发猫数目变化。此时订阅者就收到消息，打印相应内容。</p></blockquote><h4 id="用法讲解"><a href="#用法讲解" class="headerlink" title="用法讲解"></a>用法讲解</h4><p>示例中使用+&#x3D;，此外还有-&#x3D; ，&#x3D;这几个符号来进行订阅发布。</p><p>多个订阅，按照顺序依次向下。</p><p>多个订阅，其中一个抛出异常，后续订阅不进行。</p><p>多个订阅，异步的订阅会以异步的形式完成。</p><h2 id="event"><a href="#event" class="headerlink" title="event"></a>event</h2><p>这个是为了解决delegate的一些问题出现的。比如前者&#x3D;这个有可能会误用导致前面的订阅内容清空，并不是很好的情况。</p><p>事件event是一种特殊的委托，它只能+&#x3D;，-&#x3D;，不能直接用&#x3D;。event在定义类中（发布者）是可以直接&#x3D;的，但是在其他类中（订阅者）就只能+&#x3D; -&#x3D;了，<strong>也就是说发布者发布一个事件后，订阅者针对他只能进行自身的订阅和取消。</strong></p><p>相比较delegate的一些优化内容：</p><ul><li>订阅者只能进行自身的订阅和取消，不能全部清空。</li><li>事件的触发只能在事件的发布者内容，外部不能触发。</li></ul><h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><p>事件的发布者：</p><pre class="language-C#" data-language="C#"><code class="language-C#">class Cat&#123;    public delegate double MathFunction(double x, double y);    public event MathFunction CatEvent;    public void OnCatEvent()    &#123;        CatEvent(38, 5);        CatEvent.Invoke(38, 5);    &#125;&#125;</code></pre><p>事件的订阅者</p><pre class="language-C#" data-language="C#"><code class="language-C#">class Mouse&#123;    public double CatAlarm(double x,double y)    &#123;        Console.WriteLine(&quot;Cat number change&quot;);        return 0;    &#125;&#125;</code></pre><p>事件进行订阅</p><pre class="language-C#" data-language="C#"><code class="language-C#">Cat cat &#x3D; new Cat();Mouse mouse &#x3D; new Mouse();cat.CatEvent +&#x3D; mouse.CatAlarm;</code></pre><h4 id="规范使用"><a href="#规范使用" class="headerlink" title="规范使用"></a>规范使用</h4><p>经过长久的经验积累后，人们发现，绝大多数事件的定义，是用public delegate void XXX(object sender, EventArgs e);这样一个委托原型进行定义的，是一件重复性的工作，于是，EventHandler应运而生。它的出现就是为了避免这种重复性工作，并建议尽量使用该类型作为事件的原型。</p><pre class="language-C#" data-language="C#"><code class="language-C#">&#x2F;&#x2F;@sender: 引发事件的对象&#x2F;&#x2F;@e: 传递的参数public delegate void EventHandler(object sender, myEventArgs e);&#x2F;&#x2F;使用public event EventHandler emd;</code></pre><p>其中：</p><pre class="language-C#" data-language="C#"><code class="language-C#">class MyEventArgs:EventArgs&#123;    public string name;&#125;</code></pre><p>常见命名规范：以EventHandler结尾，以EventArgs结尾</p><h2 id="Action，Func"><a href="#Action，Func" class="headerlink" title="Action，Func"></a>Action，Func</h2><p>本文最开始探讨委托，然后直接顺到了事件的相关话题上。其实，关于委托还有一个重点话题漏掉了，那就是Func与Action。</p><p>在委托delegate出现了很久以后，微软的.NET设计者们终于领悟到，其实所有的委托定义都可以归纳并简化成只用Func与Action这两个语法糖来表示。其中，Func代表有返回值的委托，Action代表无返回值的委托。有了它们两，我们以后就不再需要用关键字delegate来定义委托了。</p><p>比如一下方案：</p><pre class="language-C#" data-language="C#"><code class="language-C#">public delegate double MathFunction1(double x, double y);public delegate double MathFunction2(double x, double y);&#x2F;&#x2F;无论在泛型方案还是说在发布订阅中都完全相同的作用。没有区别。&#x2F;&#x2F;完全可以直接使用Func&lt;double,double,double&gt;&#x2F;&#x2F;来代替。</code></pre><blockquote><p>综上Action，Func就是delegate的简写方法。</p></blockquote><h3 id="简化delegate中的示例"><a href="#简化delegate中的示例" class="headerlink" title="简化delegate中的示例"></a>简化delegate中的示例</h3><p>此处就简写一下上面的示例</p><h4 id="泛型方案"><a href="#泛型方案" class="headerlink" title="泛型方案"></a>泛型方案</h4><pre class="language-C#" data-language="C#"><code class="language-C#">class Cat&#123;    public void GetActualCatNum_2(Func&lt;double,double,double&gt; myFunc, double x, double y)    &#123;        var value &#x3D; myFunc(x, y);        Console.WriteLine(&quot;current value:&quot; + value);    &#125;&#125;</code></pre><p>使用泛型</p><pre class="language-C#" data-language="C#"><code class="language-C#">Cat cat &#x3D; new Cat();cat.GetActualCatNum_2(cat.CatDie, 12, 3);</code></pre><h4 id="发布订阅-delegate篇"><a href="#发布订阅-delegate篇" class="headerlink" title="发布订阅-delegate篇"></a>发布订阅-delegate篇</h4><pre class="language-C#" data-language="C#"><code class="language-C#">class Cat&#123;    public Func&lt;double,double,double&gt; CatChange_2;&#125;</code></pre><p>订阅者：</p><pre class="language-C#" data-language="C#"><code class="language-C#">class Mouse&#123;    public double CatAlarm(double x,double y)    &#123;        Console.WriteLine(&quot;Cat number change&quot;);        return 0;    &#125;&#125;</code></pre><p>订阅与发生地点：</p><pre class="language-C#" data-language="C#"><code class="language-C#">Cat cat &#x3D; new Cat();Mouse mouse &#x3D; new Mouse();cat.CatChange_2 +&#x3D; mouse.CatAlarm;cat.CatChange_2.Invoke(28,4);</code></pre><h4 id="发布订阅-event篇"><a href="#发布订阅-event篇" class="headerlink" title="发布订阅-event篇"></a>发布订阅-event篇</h4><p>发布者：</p><pre class="language-C#" data-language="C#"><code class="language-C#">class Cat&#123;    public event Func&lt;double, double, double&gt; CatEvent_2;    public void OnCatEvent()    &#123;        CatEvent_2(40, 3);        CatEvent_2.Invoke(40, 3);    &#125;&#125;</code></pre><p>订阅者：</p><pre class="language-C#" data-language="C#"><code class="language-C#">class Mouse&#123;    public double CatAlarm(double x,double y)    &#123;        Console.WriteLine(&quot;Cat number change&quot;);        return 0;    &#125;&#125;</code></pre><p>进行订阅：</p><pre class="language-C#" data-language="C#"><code class="language-C#">Cat cat &#x3D; new Cat();Mouse mouse &#x3D; new Mouse();cat.CatEvent_2 +&#x3D; mouse.CatAlarm;cat.OnCatEvent();</code></pre><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>[参考资料](<a href="https://zhuanlan.zhihu.com/p/413733828">C#中委托（delegate）与事件（event）的快速理解 - 知乎 (zhihu.com)</a>)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C# </category>
+          
+          <category> 日常学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> 基础学习 </tag>
+            
+            <tag> 事件 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>GitHub绑定域名</title>
+      <link href="/2023/10/18/GitHub%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/"/>
+      <url>/2023/10/18/GitHub%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/</url>
+      
+        <content type="html"><![CDATA[<h1 id="GitHub绑定域名"><a href="#GitHub绑定域名" class="headerlink" title="GitHub绑定域名"></a>GitHub绑定域名</h1><p>今天突发奇想把github的博客绑定好上自己的域名。下面是一些步骤和遇到的问题</p><p>步骤：</p><ol><li>记录ipv4的信息。</li><li>将域名绑定到原本的github的page的地址</li><li>在github的pages中绑定域名。</li></ol><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="不满足启用https的条件"><a href="#不满足启用https的条件" class="headerlink" title="不满足启用https的条件"></a>不满足启用https的条件</h3><p>enforce https为灰色</p><p>提示：There isn’t a GitHub Pages site here. If you’re trying to publish one, read the full documentation to learn how to set up GitHub Pages for your repository, organization, or user account.</p><p>解决方案：</p><ol><li>cloundflare中开启了tls。将tls关闭。删除github中绑定的域名。重新添加。</li><li>该方案来自网络。此处仅仅是收集做参考。可以删除域名之后，重新添加并且绑定。即可。</li></ol><h3 id="绑定成功但是页面没有显示。直接为空。"><a href="#绑定成功但是页面没有显示。直接为空。" class="headerlink" title="绑定成功但是页面没有显示。直接为空。"></a>绑定成功但是页面没有显示。直接为空。</h3><p>我在操作的时候开始是没有按照步骤完成的。首先进行了操作2.并没有进行操作1就会导致这个问题。</p><h3 id="绑定成功访问并没有访问到我的页面。但是界面中已经出现github的404"><a href="#绑定成功访问并没有访问到我的页面。但是界面中已经出现github的404" class="headerlink" title="绑定成功访问并没有访问到我的页面。但是界面中已经出现github的404."></a>绑定成功访问并没有访问到我的页面。但是界面中已经出现github的404.</h3><p>这个我没有遇到，但是此处给一个排查的思路。</p><p>我是在GitHub的绑定域名已经成功，但是此时还没有启用https。此时我如果在github的界面中进行删除绑定的域名就会出现这个问题。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 域名绑定 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 域名绑定 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>区分不同的下载版本</title>
+      <link href="/2023/10/18/%E5%8C%BA%E5%88%86%E4%B8%8D%E5%90%8C%E7%9A%84%E4%B8%8B%E8%BD%BD%E7%89%88%E6%9C%AC/"/>
+      <url>/2023/10/18/%E5%8C%BA%E5%88%86%E4%B8%8D%E5%90%8C%E7%9A%84%E4%B8%8B%E8%BD%BD%E7%89%88%E6%9C%AC/</url>
+      
+        <content type="html"><![CDATA[<h1 id="下载版本区别"><a href="#下载版本区别" class="headerlink" title="下载版本区别"></a>下载版本区别</h1><p>在网上下载软件的时候会有各种版本的区别。<br><a href="https://imgse.com/i/p9YLOB9"><img src="https://s1.ax1x.com/2023/05/04/p9YLOB9.md.png" alt="p9YLOB9.md.png"></a><br>特别是github上，所以怎么区别各种版本呢，它们之间有什么区别。  </p><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>普通windows基本就是下载win_x86_64版本就好，或者说直接amd-64(intel自己开发的已经自己都不用了改用amd64)  </p><h2 id="架构区分"><a href="#架构区分" class="headerlink" title="架构区分"></a>架构区分</h2><p>arm架构与x86架构都是架构上的区别，最重要的区分应该就是指令集上的区分</p><ul><li>arm简单指令集RISC</li><li>x86复杂指令集CISC</li></ul><h2 id="计算区别"><a href="#计算区别" class="headerlink" title="计算区别"></a>计算区别</h2><p>arm架构与x86架构都有32位与64位运算的区别。<br>arm架构是由arm开发，于2011年发布了ARMv8 64位架构，这是为了下一代ARM指令集架构工作若干年后的结晶。为了基于原有的原则和指令集，开发一个简明的64位架构，ARMv8使用了两种执行模式，AArch32和AArch64。顾名思义，一个运行32位代码，一个运行64位代码（详情戳）。ARM设计的巧妙之处，是处理器在运行中可以无缝地在两种模式间切换。这意味着64位指令的解码器是全新设计的，不用兼顾32位指令，而处理器依然可以向后兼容。<br>对于64位计算，ARM和Intel也有一些显著区别。Intel并没有开发64位版本的x86指令集。64位的指令集名为x86-64（有时简称为x64），实际上是AMD设计开发的。Intel想做64位计算，它知道如果从自己的32位x86架构进化出64位架构，新架构效率会很低，于是它搞了一个新64位处理器项目名为IA64。由此制造出了Itanium系列处理器。<br>同时AMD知道自己造不出能与IA64兼容的处理器，于是它把x86扩展一下，加入了64位寻址和64位寄存器。最终出来的架构，就是 AMD64，成为了64位版本的x86处理器的标准。IA64项目并不算得上成功，现如今基本被放弃了。Intel最终采用了AMD64。Intel当前给出的移动方案，是采用了AMD开发的64位指令集（有些许差别）的64位处理器。<br>综合一下，其实x86架构中就是intel开发了x86指令集，amd开发了x64指令集，intel与amd互相授权对方使用各自的指令集。<br>arm架构都是由arm开发的x86与x64，可以向后兼容。  </p><h2 id="使用场景区别"><a href="#使用场景区别" class="headerlink" title="使用场景区别"></a>使用场景区别</h2><p>由于架构设计上的区别，arm的功耗比较低，所以最常用于移动领域，m1芯片就是arm架构。<br>x86架构就是服务器与pc上的老大。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习路线 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学习路线 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>es6的新增语法</title>
+      <link href="/2023/10/18/es6%E7%9A%84%E6%96%B0%E5%A2%9E%E8%AF%AD%E6%B3%95/"/>
+      <url>/2023/10/18/es6%E7%9A%84%E6%96%B0%E5%A2%9E%E8%AF%AD%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="es的特殊语法"><a href="#es的特殊语法" class="headerlink" title="es的特殊语法"></a>es的特殊语法</h1><h2 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h2><p>有的时候对象的某些属性我们并不需要，然后它的存在又影响自己进行赋值或者遍历的时候就需要把这个属性给剔除出来。</p><pre class="language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">const</span> obj <span class="token operator">=</span> <span class="token punctuation">&#123;</span>  name<span class="token operator">:</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>  age<span class="token operator">:</span> <span class="token number">30</span><span class="token punctuation">,</span>  gender<span class="token operator">:</span> <span class="token string">'female'</span><span class="token punctuation">,</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token keyword">const</span> <span class="token punctuation">&#123;</span> gender<span class="token punctuation">,</span> <span class="token operator">...</span>rest <span class="token punctuation">&#125;</span> <span class="token operator">=</span> obj<span class="token punctuation">;</span><span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>rest<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#123; name: 'Alice', age: 30 &#125;</span></code></pre><p>在这个示例代码中，我们定义了一个名为 <code>obj</code> 的对象，它包含了 <code>name</code>、<code>age</code> 和 <code>gender</code> 三个属性。然后，我们使用对象解构语法来将 <code>gender</code> 属性剔除出去，并将剩余的属性存储在名为 <code>rest</code> 的新对象中。最后，我们使用 <code>console.log()</code> 方法来输出 <code>rest</code> 对象的内容，可以看到它只包含了 <code>name</code> 和 <code>age</code> 两个属性。</p><p>需要注意的是，对象解构语法只是将一个对象中的属性提取出来，并将它们存储在新的变量中。如果你需要修改原始对象，你仍然需要使用对象的赋值语法来进行修改。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习路线 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学习路线 </tag>
+            
+            <tag> es6 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ts的特殊类型</title>
+      <link href="/2023/10/18/ts%E7%9A%84%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B/"/>
+      <url>/2023/10/18/ts%E7%9A%84%E7%89%B9%E6%AE%8A%E7%B1%BB%E5%9E%8B/</url>
+      
+        <content type="html"><![CDATA[<h1 id="ts中的特殊类型"><a href="#ts中的特殊类型" class="headerlink" title="ts中的特殊类型"></a>ts中的特殊类型</h1><h2 id="Record-lt-K-T-gt"><a href="#Record-lt-K-T-gt" class="headerlink" title="Record&lt;K,T&gt;"></a>Record&lt;K,T&gt;</h2><p>有的时候我们并不能知道后台传递过来对象中的属性的名称，与属性的数目。可能只是知道对象的名称。这个时候可以怎么接收有一个特殊的类型***RecordRecord&lt;K, T&gt;***类型。</p><p><code>Record</code> 是 TypeScript 中的一个泛型类型，它表示一个由指定类型的属性名和属性值组成的对象类型。具体来说，<code>Record&lt;K, T&gt;</code> 表示一个对象类型，它的属性名为类型 <code>K</code> 中的值，属性值为类型 <code>T</code> 中的值。</p><p>例如，如果你想要定义一个类型为 <code>&#123; name: string, age: number &#125;</code> 的对象类型，你可以使用 <code>Record</code> 类型来定义它： </p><pre class="language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">type</span> <span class="token class-name">Person</span> <span class="token operator">=</span> Record<span class="token operator">&lt;</span><span class="token string">'name'</span> <span class="token operator">|</span> <span class="token string">'age'</span><span class="token punctuation">,</span> <span class="token builtin">string</span> <span class="token operator">|</span> <span class="token builtin">number</span><span class="token operator">></span><span class="token punctuation">;</span><span class="token keyword">const</span> person<span class="token operator">:</span> Person <span class="token operator">=</span> <span class="token punctuation">&#123;</span>  name<span class="token operator">:</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>  age<span class="token operator">:</span> <span class="token number">30</span><span class="token punctuation">,</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span></code></pre><p>在这个示例代码中，我们使用 <code>Record</code> 类型来定义了一个名为 <code>Person</code> 的类型，它的属性名为 <code>&#39;name&#39;</code> 和 <code>&#39;age&#39;</code>，属性值为 <code>string</code> 和 <code>number</code>。然后，我们定义了一个名为 <code>person</code> 的变量，它的类型为 <code>Person</code>，并将一个包含了 <code>name</code> 和 <code>age</code> 两个属性的对象赋值给它。</p><p>需要注意的是，<code>Record</code> 类型只是一个泛型类型，它并不会创建一个对象。如果你需要创建一个对象，你仍然需要使用对象字面量或者 <code>new</code> 关键字来进行创建。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习路线 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学习路线 </tag>
+            
+            <tag> ts </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue生产开发环境的分别配置</title>
+      <link href="/2023/10/18/vue%E7%94%9F%E4%BA%A7%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E5%88%86%E5%88%AB%E9%85%8D%E7%BD%AE/"/>
+      <url>/2023/10/18/vue%E7%94%9F%E4%BA%A7%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E5%88%86%E5%88%AB%E9%85%8D%E7%BD%AE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="vue不同模式下基础配置实现"><a href="#vue不同模式下基础配置实现" class="headerlink" title="vue不同模式下基础配置实现"></a>vue不同模式下基础配置实现</h1><p>有的时候开发环境与实际环境还是有一定的区别。需要我们根据情况选择部分内容是否启用。比如：后台服务的网址、是否启用代理等。所以最舒服的情况下可以把这些配置放在一起。方便我们使用。</p><p>示例：</p><p><img src="https://cdn.jsdelivr.net/gh/2508838014/DrawingBed/pictures/Code_w9YFkNIli0.png" alt="image-20231016103348389"></p><p>文件名称：</p><pre><code>- .env- .env.production- .env.development</code></pre><h2 id="env"><a href="#env" class="headerlink" title=".env"></a>.env</h2><p>通用环境配置，也可以说是基础配置。</p><pre class="language-latex" data-language="latex"><code class="language-latex"># 资源公共路径,需要以 /开头和结尾VITE_PUBLIC_PATH = '/'# 是否hash路由模式VITE_USE_HASH = false# base apiVITE_BASE_API = '/api'# 是否启用MOCKVITE_USE_MOCK = false# 是否启用压缩VITE_USE_COMPRESS = true# 压缩类型VITE_COMPRESS_TYPE = gzip# api路径VITE_BASE_URL = 'http://localhost:3003'VITE_RESOURCE_BASE_URL = 'http://localhost:3003'</code></pre><h2 id="env-production"><a href="#env-production" class="headerlink" title=".env.production"></a>.env.production</h2><p>生产环境。下的配置。</p><h2 id="env-development"><a href="#env-development" class="headerlink" title=".env.development"></a>.env.development</h2><p>开发环境下的配置。</p><h2 id="信息的引入"><a href="#信息的引入" class="headerlink" title="信息的引入"></a>信息的引入</h2><p>在对应的文件中引入</p><pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> request <span class="token operator">=</span> axios<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>  <span class="token literal-property property">baseURL</span><span class="token operator">:</span> <span class="token keyword">import</span><span class="token punctuation">.</span>meta<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">VITE_API_URL</span><span class="token punctuation">,</span>  <span class="token literal-property property">timeout</span><span class="token operator">:</span> <span class="token number">1000</span><span class="token operator">*</span><span class="token number">15</span><span class="token punctuation">,</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>通过这样的方案。就比较容易做一些全局的管理了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习路线 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+            <tag> 学习路线 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue按需引入</title>
+      <link href="/2023/10/18/vue%E6%8C%89%E9%9C%80%E5%BC%95%E5%85%A5/"/>
+      <url>/2023/10/18/vue%E6%8C%89%E9%9C%80%E5%BC%95%E5%85%A5/</url>
+      
+        <content type="html"><![CDATA[<h1 id="vue按需引入"><a href="#vue按需引入" class="headerlink" title="vue按需引入"></a>vue按需引入</h1><p><a href="https://juejin.cn/post/7232223238808404026">vue3+Vite+Ts 中使用自动引入，解放双手 - 掘金 (juejin.cn)</a></p><h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>vue组件与element ui的快速引入</p><h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="unplugin-auto-import"><a href="#unplugin-auto-import" class="headerlink" title="unplugin-auto-import"></a>unplugin-auto-import</h3><p>这是用于配置的关键插件</p><h4 id="配置："><a href="#配置：" class="headerlink" title="配置："></a>配置：</h4><ol><li><p>安装vite插件：<code>unplugin-auto-import</code> yarn add unplugin-auto-import -D</p></li><li><pre><code class="ts">import &#123; defineConfig &#125; from &#39;vite&#39;;import vue from &#39;@vitejs/plugin-vue&#39;;import AutoImport from &#39;unplugin-auto-import/vite&#39;;export default defineConfig(&#123;  plugins: [    vue(),    AutoImport(&#123;      // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等      imports: [&#39;vue&#39;],    &#125;),  ],&#125;);<pre class="language-none"><code class="language-none">### element ui组件的自动引入其中注意，elmessage在js中也就是个变量与ref，reactive差不多的类型。所以这个的引入需要自己思考。&gt; 参考官网 用到&#96;unplugin-vue-components &#96;和 &#96;unplugin-auto-import&#96;这两款插件&#96;&#96;&#96;ts&#x2F;&#x2F; vite.config.tsimport &#123; defineConfig &#125; from &#39;vite&#39;import AutoImport from &#39;unplugin-auto-import&#x2F;vite&#39;import Components from &#39;unplugin-vue-components&#x2F;vite&#39;import &#123; ElementPlusResolver &#125; from &#39;unplugin-vue-components&#x2F;resolvers&#39;export default defineConfig(&#123;  &#x2F;&#x2F; ...  plugins: [    &#x2F;&#x2F; ...    AutoImport(&#123;    &#x2F;&#x2F; 自动导入element相关函数，如：ElMessage, ElMessageBox..      resolvers: [ElementPlusResolver()],    &#125;),    Components(&#123;    &#x2F;&#x2F; 自动导入element相关组件      resolvers: [ElementPlusResolver()],    &#125;),  ],&#125;)</code></pre></code></pre></li></ol><p>说明：</p><p><code>unplugin-auto-import</code>会默认在要目录生成<code>auto-imports.d.ts</code>文件，<code>unplugin-vue-components</code>对应会在根目录生成<code>components.d.ts</code>文件，分别描述自动导入的 API、component。通过在tsconfig.json的include中引入对应配置文件，避免TS报错。</p><pre class="language-typescript" data-language="typescript"><code class="language-typescript"><span class="token function">AutoImport</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>  <span class="token comment">// ...</span>  <span class="token comment">// 配置文件生成位置，默认是根目录 /auto-imports.d.ts</span>  <span class="token comment">// dts: './auto-imports.d.ts',</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">Components</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>  <span class="token comment">// ...</span>  <span class="token comment">// 配置文件生成位置，默认是根目录 /components.d.ts</span>  <span class="token comment">// dts: './components.d.ts',</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span></code></pre><h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="1-可能遇到ts-eslint不识别而导入报错的问题"><a href="#1-可能遇到ts-eslint不识别而导入报错的问题" class="headerlink" title="1. 可能遇到ts,eslint不识别而导入报错的问题"></a>1. 可能遇到ts,eslint不识别而导入报错的问题</h3><p>1、typescript 报错：<code>&#39;reactive&#39; is not defined.</code> 原因：TS未识别到vue api,没有相应的模块声明文件</p><p>处理：在vite中配置并生成auto-imports.d.ts ，并在tsconfig.json中引入</p><p>&#x2F;&#x2F; vite.config.js</p><pre class="language-typescript" data-language="typescript"><code class="language-typescript"><span class="token comment">// vite.config.js</span><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">defineConfig</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>  plugins<span class="token operator">:</span> <span class="token punctuation">[</span>    <span class="token function">vue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>    <span class="token function">AutoImport</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>      <span class="token comment">// 自动导入 Vue 相关函数，如：ref, reactive, toRef 等</span>      imports<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'vue'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>      <span class="token comment">// 生成自动导入的TS声明文件</span>       dts<span class="token operator">:</span> <span class="token string">"./auto-imports.d.ts"</span><span class="token punctuation">,</span>     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>  <span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><p>&#x2F;&#x2F; tsconfig.json</p><pre class="language-typescript" data-language="typescript"><code class="language-typescript"><span class="token punctuation">&#123;</span>     <span class="token string-property property">"include"</span><span class="token operator">:</span> <span class="token punctuation">[</span>        <span class="token string">"src/**/*.d.ts"</span><span class="token punctuation">,</span>        <span class="token string">"./*.d.ts"</span><span class="token punctuation">,</span>        <span class="token string">"./auto-imports.d.ts"</span> <span class="token comment">// 导入上一步生成的配置文件</span>      <span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">&#125;</span></code></pre><h2 id="eslint不识别报错-error-39-reactive-39-is-not-defined-no-undef"><a href="#eslint不识别报错-error-39-reactive-39-is-not-defined-no-undef" class="headerlink" title="eslint不识别报错 error &#39;reactive&#39; is not defined no-undef"></a>eslint不识别报错 <code>error &#39;reactive&#39; is not defined no-undef</code></h2><p>原因：未配置自动导入相应的eslint规则<br>处理：通过autoimport中的配置生成对应<code>.eslintrc-auto-import.json</code>配置文件，并在.eslintrc中引入 生成之后enbled:false 避免重复生成</p><pre class="language-typescript" data-language="typescript"><code class="language-typescript"><span class="token comment">// vite.config.js  </span><span class="token punctuation">&#123;</span><span class="token comment">// ......</span> <span class="token function">AutoImport</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>      imports<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"vue"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>      resolvers<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token function">ElementPlusResolver</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span>      dts<span class="token operator">:</span> <span class="token string">"/auto-import.d.ts"</span><span class="token punctuation">,</span>      eslintrc<span class="token operator">:</span> <span class="token punctuation">&#123;</span>        enabled<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>  <span class="token comment">// 1、改为true用于生成eslint配置。2、生成后改回false，避免重复生成消耗</span>      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">&#125;</span></code></pre><h3 id="3-配置src-x2F-component目录下的组件自动引入-96"><a href="#3-配置src-x2F-component目录下的组件自动引入-96" class="headerlink" title="3 配置src&#x2F;component目录下的组件自动引入&#96;"></a>3 配置src&#x2F;component目录下的组件自动引入&#96;</h3><pre class="language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> defineConfig <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">'vite'</span><span class="token punctuation">;</span><span class="token keyword">import</span> vue <span class="token keyword">from</span> <span class="token string">'@vitejs/plugin-vue'</span><span class="token punctuation">;</span><span class="token keyword">import</span> AutoImport <span class="token keyword">from</span> <span class="token string">'unplugin-auto-import/vite'</span><span class="token punctuation">;</span><span class="token keyword">import</span> Components <span class="token keyword">from</span> <span class="token string">'unplugin-vue-components/vite'</span><span class="token punctuation">;</span><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">defineConfig</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>  plugins<span class="token operator">:</span> <span class="token punctuation">[</span>    <span class="token function">vue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>    <span class="token function">AutoImport</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>      <span class="token comment">// 自动导入 Vue 相关函数，如：ref, reactive, toRef 等</span>      imports<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'vue'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">Components</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>      <span class="token comment">// 指定自动导入的组件位置，默认是 src/components</span>       dirs<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'src/components'</span><span class="token punctuation">,</span><span class="token string">'src/otherComponents'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>  <span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习路线 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+            <tag> 学习路线 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue运行提示创建文件夹权限错误</title>
+      <link href="/2023/10/18/vue%E8%BF%90%E8%A1%8C%E6%8F%90%E7%A4%BA%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9%E6%9D%83%E9%99%90%E9%94%99%E8%AF%AF/"/>
+      <url>/2023/10/18/vue%E8%BF%90%E8%A1%8C%E6%8F%90%E7%A4%BA%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9%E6%9D%83%E9%99%90%E9%94%99%E8%AF%AF/</url>
+      
+        <content type="html"><![CDATA[<h1 id="vue运行出错"><a href="#vue运行出错" class="headerlink" title="vue运行出错"></a>vue运行出错</h1><h2 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h2><p><img src="https://cdn.jsdelivr.net/gh/2508838014/DrawingBed/pictures/image-20231017115515390.png" alt="image-20231017115515390"></p><p>错误原因：</p><p><img src="https://cdn.jsdelivr.net/gh/2508838014/DrawingBed/pictures/image-20231017131804640.png" alt="image-20231017131804640"></p><p>其中dts路径错误</p><p>之前错误的路径：</p><pre class="language-text" data-language="text"><code class="language-text">dts:"/auto-imports.d.ts"</code></pre><p>，表示写在根目录下某个文件。根目录又是系统文件集中区域，nodeJs是没有相应的权限的。修改成上图所示路径后问题解决。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 知错就改 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+            <tag> 知错就改 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue实现字符串超出部分隐藏</title>
+      <link href="/2023/10/18/vue%E5%AE%9E%E7%8E%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%B6%85%E5%87%BA%E9%83%A8%E5%88%86%E9%9A%90%E8%97%8F/"/>
+      <url>/2023/10/18/vue%E5%AE%9E%E7%8E%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%B6%85%E5%87%BA%E9%83%A8%E5%88%86%E9%9A%90%E8%97%8F/</url>
+      
+        <content type="html"><![CDATA[<h1 id="vue实现字符串超出部分隐藏"><a href="#vue实现字符串超出部分隐藏" class="headerlink" title="vue实现字符串超出部分隐藏"></a>vue实现字符串超出部分隐藏</h1><p>有的时候在一些地方会放置字符串。比如昵称。但是往往由于布局的设置，如果完完整整的显示出出来，会出现比如压榨后面的组件的空间。导致组件错位等。所以在这个时候我们希望能把超出部分的内容给隐藏起来。</p><pre class="language-vue" data-language="vue"><code class="language-vue">&lt;span :title&#x3D;&quot;props.title&quot; class&#x3D;&quot;title-span&quot;&gt;&#123;&#123; props.title &#125;&#125;&lt;&#x2F;span&gt;</code></pre><p>对应的样式：</p><pre class="language-scss" data-language="scss"><code class="language-scss"><span class="token selector">.title-span </span><span class="token punctuation">&#123;</span>    <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span><span class="token comment">//要求是这个格式</span>    <span class="token property">max-width</span><span class="token punctuation">:</span> 80px<span class="token punctuation">;</span><span class="token comment">//控制最大的宽度</span>    <span class="token property">white-space</span><span class="token punctuation">:</span> nowrap<span class="token punctuation">;</span><span class="token comment">// /* 禁止文本换行 */</span>    <span class="token property">text-overflow</span><span class="token punctuation">:</span> ellipsis<span class="token punctuation">;</span><span class="token comment">// /* 超出宽度的文本用省略号代替 */</span>    <span class="token property">overflow</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span><span class="token comment">// /* 超出容器宽度的部分进行隐藏 */</span><span class="token punctuation">&#125;</span></code></pre><p>其中display：block是因为只有块级元素才有宽与高，但是span是行级元素。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习路线 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+            <tag> 学习路线 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>apifox的使用</title>
+      <link href="/2023/10/18/apifox%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+      <url>/2023/10/18/apifox%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Apifox的使用"><a href="#Apifox的使用" class="headerlink" title="Apifox的使用"></a>Apifox的使用</h1><p>看到有推荐这个的看到了这个软件。于是自己拿来使用。现在做一些记录。</p><h2 id="关于mock的部分"><a href="#关于mock的部分" class="headerlink" title="关于mock的部分"></a>关于mock的部分</h2><p>语法请参考<a href="http://mockjs.com/examples.html#DPD">Mock.js (mockjs.com)</a></p><h3 id="1-1-在固定的一组字符串中返回其中一个"><a href="#1-1-在固定的一组字符串中返回其中一个" class="headerlink" title="1-1. 在固定的一组字符串中返回其中一个"></a>1-1. 在固定的一组字符串中返回其中一个</h3><pre class="language-mockjs" data-language="mockjs"><code class="language-mockjs">&#123;  &quot;message&quot;: &quot;&quot;,  &quot;success&quot;: true,  &quot;content&quot;: &#123;    &quot;code&quot;: &quot;@city()&quot;,    &quot;status|1&quot;: [&#39;Auto&#39;,&#39;Manual&#39;,&#39;Stop&#39;,&#39;Warn&#39;,&#39;error&#39;    ],    &quot;stopNum&quot;:&#39;@integer(2,    500)&#39;,    &quot;workLastingTime&quot;:‘@Date&#39;,    &quot;highestCTTime&quot;:‘@Date&#39;,    &quot;stopLastingTime&quot;:‘@Date&#39;,    &quot;data|1&quot;: [      &#123;        &quot;temp&quot;:&#39;@name&#39;,        &quot;phone&quot;:&#39;@phone&#39;      &#125;    ]  &#125;,  &quot;errorCode&quot;: 0&#125;</code></pre><h3 id="1-2-特点：返回固定长度的浮点数组"><a href="#1-2-特点：返回固定长度的浮点数组" class="headerlink" title="1-2. 特点：返回固定长度的浮点数组"></a>1-2. 特点：返回固定长度的浮点数组</h3><pre class="language-mockjs" data-language="mockjs"><code class="language-mockjs">&#123;    &quot;message&quot;: &quot;&quot;,    &quot;success&quot;: true,    &quot;content&quot;: &#123;        &quot;uclX&quot;: 3.9590502,        &quot;lclX&quot;: 3.02845,        &quot;uclR&quot;: 0.80858266,        &quot;lclR&quot;: 0,        &quot;averages|9999&quot;: [            &#39;@float(3, 4.5, 2,3)&#39;        ],        &quot;ranges|9999&quot;: [            &#39;@float(0, 1, 2,3)&#39;        ]    &#125;,    &quot;errorCode&quot;: 0&#125;</code></pre><h3 id="2-1-脚本编辑-特点：可以获取到请求携带的数据。"><a href="#2-1-脚本编辑-特点：可以获取到请求携带的数据。" class="headerlink" title="2-1. 脚本编辑-特点：可以获取到请求携带的数据。"></a>2-1. 脚本编辑-特点：可以获取到请求携带的数据。</h3><p>生成浮点数区间：</p><pre class="language-mockjs" data-language="mockjs"><code class="language-mockjs">Math.random() * (max-min) + min;</code></pre><p>实现方案</p><pre class="language-mockjs" data-language="mockjs"><code class="language-mockjs">var MockJs &#x3D; require(&#39;mockjs&#39;);&#x2F;&#x2F; 获取“智能 Mock”自动生成的 jsonvar responseJson &#x3D; fox.mockResponse.json();var productNum&#x3D;parseInt(fox.mockRequest.getParam(&#39;productType&#39;));responseJson.content.averages&#x3D;[];responseJson.content.ranges&#x3D;[];responseJson.content.uclX&#x3D;Math.random() * (4.5-4) + 4;responseJson.content.lclX&#x3D;Math.random() * (3-2) + 2;responseJson.content.uclR&#x3D;Math.random() * ( 1-0.9) + 0.9;responseJson.content.lclR&#x3D;Math.random() * ( 0.1-0) + 0;for(let i&#x3D;0;i&lt;productNum;i++)&#123;    responseJson.content.averages.push(Math.random() * ( 4.5-3) + 3)    responseJson.content.ranges.push(Math.random() * (1-0) + 0)&#125;responseJson.success&#x3D;true;fox.mockResponse.setBody(responseJson)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习路线 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 学习路线 </tag>
+            
+            <tag> apifox </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>apifox中的mock的url错误</title>
+      <link href="/2023/10/18/apifox%E4%B8%AD%E7%9A%84mock%E7%9A%84url%E9%94%99%E8%AF%AF/"/>
+      <url>/2023/10/18/apifox%E4%B8%AD%E7%9A%84mock%E7%9A%84url%E9%94%99%E8%AF%AF/</url>
+      
+        <content type="html"><![CDATA[<h1 id="知错就改Apifox-mock的url错误"><a href="#知错就改Apifox-mock的url错误" class="headerlink" title="知错就改Apifox-mock的url错误"></a>知错就改Apifox-mock的url错误</h1><h2 id="错误现象"><a href="#错误现象" class="headerlink" title="错误现象"></a>错误现象</h2><p>我在正常进行测试页面的时候，突然返回404了。我于是检查Apifox的mock内容。在apifox发送请求还是404于是判定，apifox的mock模块应该出现问题了。检查发现mock的url发生了改变。后缀跟着的是一串数字，而不是路径信息。</p><h2 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h2><p>查询官方的<a href="https://apifox.com/help/api-mock/intro-to-mock">Mock 功能简介 | Apifox 帮助文档</a>后确定，此处的url是id模式，而不是之前的路径模式，所以之前的url才会404.现在的问题就是怎么把这个id模式修改成为路径模式。</p><p>然后一条信息抓住了我的眼球：必须以&#x2F;作为开头。转会Apifox检查。发现get的接口路径的确不知道何时修改成为完整的url而不是只有后缀的部分。修改url为之前的路径。修改完成。</p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>修改get接口的url从完整的url到部分路径部分。修改完成。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工作技巧 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 知错就改 </tag>
+            
+            <tag> apifox </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue中与ts中的遍历</title>
+      <link href="/2023/10/18/vue%E4%B8%AD%E4%B8%8Ets%E4%B8%AD%E7%9A%84%E9%81%8D%E5%8E%86/"/>
+      <url>/2023/10/18/vue%E4%B8%AD%E4%B8%8Ets%E4%B8%AD%E7%9A%84%E9%81%8D%E5%8E%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="vue中与ts中的遍历"><a href="#vue中与ts中的遍历" class="headerlink" title="vue中与ts中的遍历"></a>vue中与ts中的遍历</h1><p>在vue中经常遇见遍历某个数组或者遍历某个对象中的全部属性的情况。</p><ol><li>遍历对象中的全部属性</li></ol><pre class="language-vue" data-language="vue"><code class="language-vue">&lt;el-descriptions title&#x3D;&quot;设备基础信息&quot; :border&#x3D;&quot;true&quot;&gt;    &lt;el-descriptions-itemv-for&#x3D;&quot;(value,key) in deviceBaseData&quot;         :label&#x3D;&quot;key&quot;&gt;        &#123;&#123;value&#125;&#125;    &lt;&#x2F;el-descriptions-item&gt;&lt;&#x2F;el-descriptions&gt;</code></pre><ol start="2"><li>遍历数组中的全部内容</li></ol><pre class="language-vue" data-language="vue"><code class="language-vue">&lt;el-select v-model&#x3D;&quot;form.checkItemCode&quot;&gt;    &lt;el-optionv-for&#x3D;&quot;item in formConfig.checkItemOptions&quot;         :value&#x3D;&quot;item&quot;         :key&#x3D;&quot;item&quot;        :label&#x3D;&quot;item&quot; &#x2F;&gt;&lt;&#x2F;el-select&gt;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工作技巧 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+            <tag> ts </tag>
+            
+            <tag> 遍历 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Swagger-学习路线-开始使用</title>
       <link href="/2023/08/08/Swagger-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF-%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8/"/>
       <url>/2023/08/08/Swagger-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF-%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8/</url>
