@@ -97,6 +97,35 @@
     
     
     <entry>
+      <title>CSharp中logger4-知错就改-不生成对应元素</title>
+      <link href="/2023/10/18/CSharp%E4%B8%ADlogger4-%E7%9F%A5%E9%94%99%E5%B0%B1%E6%94%B9-%E4%B8%8D%E7%94%9F%E6%88%90%E5%AF%B9%E5%BA%94%E5%85%83%E7%B4%A0/"/>
+      <url>/2023/10/18/CSharp%E4%B8%ADlogger4-%E7%9F%A5%E9%94%99%E5%B0%B1%E6%94%B9-%E4%B8%8D%E7%94%9F%E6%88%90%E5%AF%B9%E5%BA%94%E5%85%83%E7%B4%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="logger4-知错就改-无法生成与写入"><a href="#logger4-知错就改-无法生成与写入" class="headerlink" title="logger4-知错就改-无法生成与写入"></a>logger4-知错就改-无法生成与写入</h1><h2 id="错误现象"><a href="#错误现象" class="headerlink" title="错误现象"></a>错误现象</h2><p>无论怎么写都不对。断点检查，发现是权限不足。好像是配置不够</p><p><img src="https://cdn.jsdelivr.net/gh/2508838014/DrawingBed/pictures/image-20230720185541135.png" alt="image-20230720185541135"></p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>把对应的config文件复制到输出目录。</p><p><img src="https://cdn.jsdelivr.net/gh/2508838014/DrawingBed/pictures/image-20230720185635223.png" alt="image-20230720185635223"></p><p>如图所示，就是把对应的图片显示出来。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> logger4 - 知错就改 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> 知错就改 </tag>
+            
+            <tag> logger4 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>GitHub绑定域名</title>
       <link href="/2023/10/18/GitHub%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/"/>
       <url>/2023/10/18/GitHub%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/</url>
