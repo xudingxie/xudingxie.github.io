@@ -3010,6 +3010,45 @@ blockquote > :last-child {
   --hlscrollbar-bg: #1f1f1f;
   --hlexpand-bg: linear-gradient(180deg, rgba(23,23,23,0.6), rgba(23,23,23,0.9));
 }
+#article-container pre[class*='language-'].line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber;
+  line-height: 1.6;
+}
+#article-container pre[class*='language-'].line-numbers > code {
+  position: relative;
+  line-height: 1.6;
+  white-space: inherit;
+  word-wrap: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+#article-container pre[class*='language-'].line-numbers .line-numbers-rows {
+  position: absolute;
+  top: 0;
+  left: -3.8em;
+  width: 3em;
+  letter-spacing: -1px;
+  font-size: 100%;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#article-container pre[class*='language-'].line-numbers .line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+  pointer-events: none;
+}
+#article-container pre[class*='language-'].line-numbers .line-numbers-rows > span:before {
+  display: block;
+  padding-right: 0.8em;
+  color: var(--hlnumber-color);
+  content: counter(linenumber);
+  text-align: right;
+}
 pre[class*='language-'] .token.comment,
 pre[class*='language-'] .token.prolog,
 pre[class*='language-'] .token.doctype,
