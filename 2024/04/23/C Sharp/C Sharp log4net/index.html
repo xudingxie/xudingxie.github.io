@@ -1,0 +1,659 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>C Sharp log4net | xieding的安家小屋</title><meta name="keywords" content="C#"><meta name="author" content="xudingxie"><meta name="copyright" content="xudingxie"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="C Sharp log4net"><meta name="application-name" content="C Sharp log4net"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="C Sharp log4net"><meta property="og:url" content="https://xudingxie.github.io/2024/04/23/C%20Sharp/C%20Sharp%20log4net/index.html"><meta property="og:site_name" content="xieding的安家小屋"><meta property="og:description" content="Log4net这一篇就全部用来介绍这个C Sharp中的日志记录产品。 明确。C#本身是存在一个记录日志的功能的。但是生活中大家更乐意使用第三方的。所以第三方需要接管第一方的日志功能。 记录流程这边简单说明一下log4net内部在记录时做了什么。 假设执行log4net.LogManager.Get"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https:////cdn.jsdelivr.net/gh/xudingxie/DrawingBed/pictures/images"><meta property="article:author" content="xudingxie"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https:////cdn.jsdelivr.net/gh/xudingxie/DrawingBed/pictures/images"><meta name="description" content="Log4net这一篇就全部用来介绍这个C Sharp中的日志记录产品。 明确。C#本身是存在一个记录日志的功能的。但是生活中大家更乐意使用第三方的。所以第三方需要接管第一方的日志功能。 记录流程这边简单说明一下log4net内部在记录时做了什么。 假设执行log4net.LogManager.Get"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="https://xudingxie.github.io/2024/04/23/C%20Sharp/C%20Sharp%20log4net/"><link rel="preconnect" href="//cdn.cbd.int"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2023/09/03/125766904/ee23df8517f3c3e3efc4145658269c06_5714860933110284659.png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: 'https://twikoo-silk-two.vercel.app/',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: {"skills":["🤖️ 数码科技爱好者","🔍 分享与热心帮助","🏠 智能家居小能手","🔨 设计开发一条龙","🤝 专修交互与设计","🏃 脚踏实地行动派","🧱 团队小组发动机","💢 壮汉人狠话不多"]},
+  algolia: {"appId":"QJC40SLCNQ","apiKey":"03d159152c10666b5d65fcdd2f1ec169","indexName":"AlgoliaForHexoIndex","hits":{"per_page":6},"languages":{"input_placeholder":"输入关键词后按下回车查找","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: xudingxie","link":"链接: ","source":"来源: xieding的安家小屋","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: 'xieding的安家小屋',
+  title: 'C Sharp log4net',
+  postAI: '',
+  pageFillDescription: 'Log4net, 记录流程, 参考内容这一篇就全部用来介绍这个中的日志记录产品明确本身是存在一个记录日志的功能的但是生活中大家更乐意使用第三方的所以第三方需要接管第一方的日志功能记录流程这边简单说明一下内部在记录时做了什么假设执行流程顺序你发布了个任务记录数据会首先会通过调用寻找到对应的干活的工人这个中间也有各种麻烦事情首先工人只提供这方法不好用啊那工人就有一个包工头包工头只有一个方法就是获取实例包工头的作用就是用于找到工人嘛但是包工头能找到工人了可是活从哪里来啊所以包工头还要有标书实现凭证在市场里找活这个标书就是一个真正平时人们发布任务需要的东西所以最后什么活还是可以到达工人手里工人收到活了但是他也会根据自己的配置先看看这活我接不接配置了那低于的信息比如我就不干如果干那就付出性能代价一个函数调用和一个整数形式的级别比较重新包装任务于是工人就创建一个任务包把你要做的事儿用任务包的形式包起来以后的流程就都针对任务包处理了任务包里信息丰富包含时间代码位置工人的名字信息线程名用户名信息异常上下文等等工人确定干活后就是临时工上场了原来工人也偷懒把活都给临时工去做就去控制台就去文件有几个临时工全看当时设置的时候这个活是几个人份的全看最初的策划临时工特长在控制台上写日志的徒弟青出于蓝写出来的东东还可以带颜色花花绿绿的煞是好看往文件里写日志往可滚动的文件里写日志就是说它会按客户要求控制文件大小和数量一个文件写满就帮你再开另一个接着写帮其他传任务包的人当然自己可以干一点雁过拔毛的事做一些过滤的事情比如说你要写的东东里包含不雅的词汇它可以让你变得文明一些往的写日志在的里写日志往数据库里写日志往事件里写日志把日志转给另外的服务如一个专门的集中的日志服务器通过邮件把日志发出去把日志包成邮件发在指定目录等待专门的代理去发送把日志发到控制台通过协议把日志发给另外的一个主机或者组播给一些主机当然你可以自己搞个临时工比如发个短信什么的可以取名叫从继承通过配置告诉就行但是临时工也是有尊严的只做合法的活检查员登场这活最终究竟干不干马仔还得通过再问问检查员们注意这里说得是检查员们就是说所有在册的检查员都点头这话才能干如何让检查员在册看配置文件如雁过拔毛的临时工和检查员配合工作把大于和小于的东东通知给马仔让它写到控制台上检查员都有自己的关注的内容日志级别等于指定的级别才放行按日志级别范围做比较可取区间内的放行如必须大于小于对你的言论进行检查符合字符串比对条件的放行如必须包含芝麻开门的字符串才让写比对条件可以是简单的带通配符的字符串也可以是正则表达式帅的徒弟对的某个属性进行检查符合字符串匹配条件才放行检查工头的名字如果是以指定的字符串开头的才放行如只要是姓张的工头发下来的任务包都让过这个检查员最黑什么都不让过检查员们点头后这事就必须要干了怎么干客户要写的东东究竟用什么格式输出这活由排版员来干下面是排版员的名单排版员特长对中的异常信息进行排版最常用的排版员通过一堆标识符来决定版式如表示要以此输出日志日期级别个字母的宽度信息最简单的版式把日志写到文件中去写成一个把日志写到文件中去写成一个其格式需符合对事件定义的排版员需要排版的信息的字符串内容例如文章开头的除了这样的字符串信息还可以是任意的对象因此需要针对对象进行专门的排版由对象打印机来干你可以针对自己的信息对象搞如打印订单信息的一旦在订单处理中发生错误把订单的主要信息打印出来方便调试别忘了必须实现一切就绪各个马仔就做最后的输出有打印屏幕的有写文件的有在网络上发数据的八仙过海各显神通整个流程走完相信我们接触到的都已不再陌生良好的实现了事件过滤格式排版的高度扩展性和可配置性的这处理模式可以看作是一种扩展的模式完全可以应用到我们自己的应用程序中去比如说订单处理可以实现对不同订单的过滤实现不同的订单的提交目的地写数据库发邮件短信通知等等最后给出的关系简图其中核心是是什么可以说成基于一个配置节创建的容器它根据配置节的指示创建其他所有对象等等并保有他们的实例随时为你所用每个都有自己唯一的名字如一般而言一个或者说一个进程有一个该下所有程序集都可以使用这个需要实现中就通过继承实现了它也是中唯一实现的类那么是什么呢里存放着通过配置文件创建的所有由于们是有父子关系的因此通过继承树来存放所有的根节点就是我们熟悉的如例名日志级别从父继承的级别对应的配置文件就是上例中定义了三个都将存放在中三个形成继承关系子中未定义的属性都将从父中继承一旦你的应用程序通过得到也就是的代理那么将从的继承树中找出对应的得到得到这样你就可以为程序集中不同的命名空间甚至是某个类设置相应的配置如上例就可以实现和其父不同的日志行为使用不同的如果你的应用程序中不同程序集需要使用不同配置节或者说需要使用不同的配置文件那就使用不同的如在程序集中加入语句这样你的就可以单独使用一份配置文件创建一个新的你也可以为自己的命名如何共用不作上面所说的所有改动一个中所有程序集都共用缺省的但是当需要共用另一个时就需要做一些工作产生这样的需求包括两个应用程序共用一份配置对日志做同样的处理两个需要共用一份配置对日志做同样的处理特别时在运行时动态升级程序集时这个需求显得尤其关键首先记载的程序集需要为命名后续的程序集只需要引用它即可这种方式下两个写同一份日志文件时可能产生文件共享冲突的错误文件已经被锁定不能写需要修改配置在中加入配置如参考内容面面观之工作原理面面观之模块结构这个看着很高端但是看不懂',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-23 19:48:37',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https:////cdn.jsdelivr.net/gh/xudingxie/DrawingBed/pictures/images"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">xieding的安家小屋</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索🔍" accesskey="s"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span> 搜索</span></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="/img/reward/wechat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/reward/wechat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/reward/alipay.jpg" target="_blank"><img class="post-qr-code-img" alt="支付宝" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/reward/alipay.jpg"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/Attribute/" style="font-size: 1.05rem;">Attribute<sup>1</sup></a><a href="/tags/C/" style="font-size: 1.05rem;">C#<sup>55</sup></a><a href="/tags/CSHARP/" style="font-size: 1.05rem;">CSHARP<sup>1</sup></a><a href="/tags/Csv/" style="font-size: 1.05rem;">Csv<sup>1</sup></a><a href="/tags/DataTable/" style="font-size: 1.05rem;">DataTable<sup>1</sup></a><a href="/tags/DateTime/" style="font-size: 1.05rem;">DateTime<sup>1</sup></a><a href="/tags/Form%E6%93%8D%E4%BD%9C/" style="font-size: 1.05rem;">Form操作<sup>8</sup></a><a href="/tags/Hepler/" style="font-size: 1.05rem;">Hepler<sup>11</sup></a><a href="/tags/MessageBox/" style="font-size: 1.05rem;">MessageBox<sup>1</sup></a><a href="/tags/PadLeft/" style="font-size: 1.05rem;">PadLeft()<sup>1</sup></a><a href="/tags/PadRight/" style="font-size: 1.05rem;">PadRight()<sup>1</sup></a><a href="/tags/RPC/" style="font-size: 1.05rem;">RPC<sup>2</sup></a><a href="/tags/SQL-Server/" style="font-size: 1.05rem;">SQL Server<sup>1</sup></a><a href="/tags/TCP/" style="font-size: 1.05rem;">TCP<sup>2</sup></a><a href="/tags/TextBox/" style="font-size: 1.05rem;">TextBox<sup>2</sup></a><a href="/tags/logger4/" style="font-size: 1.05rem;">logger4<sup>1</sup></a><a href="/tags/sql-server/" style="font-size: 1.05rem;">sql server<sup>1</sup></a><a href="/tags/toString/" style="font-size: 1.05rem;">toString<sup>1</sup></a><a href="/tags/%E4%BA%8B%E4%BB%B6/" style="font-size: 1.05rem;">事件<sup>3</sup></a><a href="/tags/%E5%86%85%E8%81%9A/" style="font-size: 1.05rem;">内聚<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 1.05rem;">前端<sup>23</sup></a><a href="/tags/%E5%9B%BE%E7%89%87%E8%BD%AC%E5%8C%96/" style="font-size: 1.05rem;">图片转化<sup>1</sup></a><a href="/tags/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">基础学习<sup>9</sup></a><a href="/tags/%E5%A7%94%E6%89%98/" style="font-size: 1.05rem;">委托<sup>1</sup></a><a href="/tags/%E5%AD%97%E5%85%B8/" style="font-size: 1.05rem;">字典<sup>1</sup></a><a href="/tags/%E5%AD%97%E8%8A%82%E6%95%B0%E7%BB%84/" style="font-size: 1.05rem;">字节数组<sup>2</sup></a><a href="/tags/%E5%AD%97%E8%8A%82%E6%B5%81/" style="font-size: 1.05rem;">字节流<sup>1</sup></a><a href="/tags/%E5%AE%9A%E6%9C%9F%E6%B8%85%E7%90%86/" style="font-size: 1.05rem;">定期清理<sup>1</sup></a><a href="/tags/%E5%BC%82%E5%B8%B8/" style="font-size: 1.05rem;">异常<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.05rem;">数据库<sup>8</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E5%90%8D%E7%A7%B0/" style="font-size: 1.05rem;">文件名称<sup>1</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E5%A4%B9/" style="font-size: 1.05rem;">文件夹<sup>1</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" style="font-size: 1.05rem;">日常学习<sup>3</sup></a><a href="/tags/%E7%9F%A5%E9%94%99%E5%B0%B1%E6%94%B9/" style="font-size: 1.05rem;">知错就改<sup>10</sup></a><a href="/tags/%E7%A8%8B%E5%BA%8F%E8%B7%AF%E5%BE%84/" style="font-size: 1.05rem;">程序路径<sup>1</sup></a><a href="/tags/%E7%B1%BB/" style="font-size: 1.05rem;">类<sup>2</sup></a><a href="/tags/%E8%80%A6%E5%90%88/" style="font-size: 1.05rem;">耦合<sup>1</sup></a><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" style="font-size: 1.05rem;">软件工程<sup>1</sup></a><a href="/tags/%E8%BF%9E%E6%8E%A5/" style="font-size: 1.05rem;">连接<sup>1</sup></a><a href="/tags/%E9%83%A8%E5%88%86%E5%86%85%E5%AE%B9%E7%9A%84%E6%80%BB%E7%BB%93/" style="font-size: 1.05rem;">部分内容的总结<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="anzhiyufont anzhiyu-icon-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">5</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">10</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/02/"><span class="card-archive-list-date">二月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">2</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/01/"><span class="card-archive-list-date">一月 2024</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">1</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">7</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/11/"><span class="card-archive-list-date">十一月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">20</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">十月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">19</span><span>篇</span></div></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/08/"><span class="card-archive-list-date">八月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">3</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/" itemprop="url">C#</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/C/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>C#</span></a></span></div></div><h1 class="post-title" itemprop="name headline">C Sharp log4net</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2024-04-23T13:21:01.000Z" title="发表于 2024-04-23 21:21:01">2024-04-23</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2024-04-23T11:48:37.957Z" title="更新于 2024-04-23 19:48:37">2024-04-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator"></span><span class="post-meta-wordcount"><i class="anzhiyufont anzhiyu-icon-file-word post-meta-icon" title="文章字数"></i><span class="post-meta-label" title="文章字数">字数总计:</span><span class="word-count" title="文章字数">2.7k</span><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-clock post-meta-icon" title="阅读时长"></i><span class="post-meta-label" title="阅读时长">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator"></span><span class="post-meta-pv-cv" id="" data-flag-title="C Sharp log4net"><i class="anzhiyufont anzhiyu-icon-fw-eye post-meta-icon"></i><span class="post-meta-label" title="阅读量">阅读量:</span><span id="busuanzi_value_page_pv"><i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i></span></span><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为江苏-宿迁-梦之蓝"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>江苏-宿迁-梦之蓝</span></div></div></div><article class="post-content" id="article-container" itemscope itemtype="https://xudingxie.github.io/2024/04/23/C%20Sharp/C%20Sharp%20log4net/"><header><a class="post-meta-categories" href="/categories/C/" itemprop="url">C#</a><a href="/tags/C/" tabindex="-1" itemprop="url">C#</a><h1 id="CrawlerTitle" itemprop="name headline">C Sharp log4net</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">xudingxie</span><time itemprop="dateCreated datePublished" datetime="2024-04-23T13:21:01.000Z" title="发表于 2024-04-23 21:21:01">2024-04-23</time><time itemprop="dateCreated datePublished" datetime="2024-04-23T11:48:37.957Z" title="更新于 2024-04-23 19:48:37">2024-04-23</time></header><h1 id="Log4net"><a href="#Log4net" class="headerlink" title="Log4net"></a>Log4net</h1><p>这一篇就全部用来介绍这个C Sharp中的日志记录产品。</p>
+<p>明确。C#本身是存在一个记录日志的功能的。但是生活中大家更乐意使用第三方的。所以第三方需要接管第一方的日志功能。</p>
+<h2 id="记录流程"><a href="#记录流程" class="headerlink" title="记录流程"></a>记录流程</h2><p>这边简单说明一下log4net内部在记录时做了什么。</p>
+<p>假设执行log4net.LogManager.GetLogger().Info(“hello world!”)</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/xudingxie/DrawingBed/pictures/o_log4netProcess.png" alt="img"></p>
+<p>流程顺序：</p>
+<ol start="0">
+<li><p>你发布了个任务，记录数据hello world。</p>
+</li>
+<li><p>LogManager会首先会通过调用LogManager.GetLogger()寻找到对应的干活的工人(logger).</p>
+</li>
+</ol>
+<p>​	这个中间也有各种麻烦事情。首先工人(logger)只提供void Log(string callerFullName, Level level, object message, Exception t)。这方法不好用啊。那工人就有一个包工头（IloggerWrapper）。包工头（IloggerWrapper）只有一个方法就是获取Ilogger实例（包工头的作用就是用于找到工人嘛）。但是包工头能找到工人了，可是活从哪里来啊。所以包工头（IloggerWrapper）还要有标书（实现Ilog），凭证在市场里找活。这个标书（ILog）就是一个真正平时人们发布任务需要的东西。</p>
+<p>​	所以最后什么活还是可以到达工人手里。</p>
+<ol start="2">
+<li>工人(logger)收到活了，但是他也会根据自己的配置，先看看这活我接不接，配置了info。那低于info的信息，比如debug我就不干。如果干，那就付出性能代价（一个函数调用和一个整数形式的级别比较）,重新包装任务。于是，工人Logger就创建一个任务包LoggingEvent，把你要做的事儿用任务包的形式包起来，以后的流程就都针对任务包LoggingEvent处理了。</li>
+</ol>
+<p>​	任务包LoggingEvent里信息丰富，包含：时间代码位置、工人的名字、信息、线程名、用户名、信息、异常、上下文等等。 </p>
+<ol start="3">
+<li>工人(logger)确定干活后。就是Appender(临时工)上场了。原来工人也偷懒，把活都给临时工去做。ConsoleAppender就去控制台，FileAppender就去文件。有几个临时工全看当时设置的时候这个活是几个人份的。全看最初的策划。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th><strong>临时工</strong></th>
+<th><strong>特长</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ConsoleAppender</td>
+<td>在控制台上写日志</td>
+</tr>
+<tr>
+<td>ColoredConsoleAppender</td>
+<td>ConsoleAppender的徒弟，青出于蓝，写出来的东东还可以带颜色，花花绿绿的，煞是好看</td>
+</tr>
+<tr>
+<td>FileAppender</td>
+<td>往文件里写日志</td>
+</tr>
+<tr>
+<td>RollingFileAppender</td>
+<td>往可滚动的文件里写日志，就是说它会按客户要求控制文件大小和数量，一个文件写满就帮你再开另一个接着写</td>
+</tr>
+<tr>
+<td>ForwardingAppender</td>
+<td>帮其他Appender传任务包的人，当然自己可以干一点雁过拔毛的事（做一些过滤的事情，比如说你要写的东东里包含不雅的词汇，它可以让你变得文明一些）</td>
+</tr>
+<tr>
+<td>NetSendAppender</td>
+<td>往Windows的Messager写日志</td>
+</tr>
+<tr>
+<td>ASPNetTraceAppender</td>
+<td>在Asp.Net的Trace里写日志</td>
+</tr>
+<tr>
+<td>ADONetAppender</td>
+<td>往数据库里写日志</td>
+</tr>
+<tr>
+<td>EventLogAppender</td>
+<td>往Windows事件里写日志</td>
+</tr>
+<tr>
+<td>RemotingAppender</td>
+<td>把日志转给另外的Remoting服务，如：一个专门的集中的日志服务器</td>
+</tr>
+<tr>
+<td>SmtpAppender</td>
+<td>通过邮件把日志发出去</td>
+</tr>
+<tr>
+<td>SmtpPickupDirAppender</td>
+<td>把日志包成邮件，发在指定目录，等待专门的Smtp代理去发送</td>
+</tr>
+<tr>
+<td>TelnetAppender</td>
+<td>把日志发到Telnet控制台</td>
+</tr>
+<tr>
+<td>UdpAppender</td>
+<td>通过UDP协议把日志发给另外的一个主机，或者组播给一些主机</td>
+</tr>
+</tbody></table>
+<p>当然，你可以自己搞个临时工，比如发个短信什么的，可以取名叫MobilePagerAppender（<strong>从<strong><strong>AppenderSkeleton</strong></strong>继承</strong>），通过配置告诉log4net就行。 </p>
+<ol start="4">
+<li><p>但是临时工也是有尊严的，只做合法的活。检查员Filter登场。这活最终究竟干不干，马仔还得通过Decide()再问问检查员们。注意，这里说得是“检查员们”，就是说所有在册的检查员都点头，这话才能干。如何让检查员在册，看配置文件，如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;FF&quot;</span> <span class="attr">type</span>=<span class="string">&quot;log4net.Appender.ForwardingAppender&quot;</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter</span> <span class="attr">type</span>=<span class="string">&quot;log4net.Filter.LevelRangeFilter&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;LevelMin&quot;</span> <span class="attr">value</span>=<span class="string">&quot;DEBUG&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;LevelMax&quot;</span> <span class="attr">value</span>=<span class="string">&quot;INFO&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;ConsoleAppender&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>雁过拔毛的临时工ForwardingAppender和检查员LevelRangeFilter配合工作，把大于Debug和小于Info的东东通知给马仔ConsoleAppender，让它写到控制台上。</p>
+<p>检查员都有自己的关注的内容</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>LevelMatchFilter</th>
+<th>日志级别等于指定的级别才放行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LevelRangeFilter</td>
+<td>按日志级别范围做比较，可取区间内的放行。如必须大于Warn小于Info</td>
+</tr>
+<tr>
+<td>StringMatchFilter</td>
+<td>对你的言论进行检查，符合字符串比对条件的放行。如：必须包含“芝麻开门”的字符串才让写。比对条件可以是简单的带通配符的字符串，也可以是正则表达式（帅！）</td>
+</tr>
+<tr>
+<td>PropertyFilter</td>
+<td>StringMatchFilter的徒弟，对LoggingEvent的某个属性进行检查，符合字符串匹配条件才放行</td>
+</tr>
+<tr>
+<td>LoggerMatchFilter</td>
+<td>检查工头(Logger)的名字，如果是以指定的字符串开头的才放行。如：只要是姓“张”的工头发下来的任务包，都让过。</td>
+</tr>
+<tr>
+<td>DenyAllFilter</td>
+<td>这个检查员最黑，什么都不让过</td>
+</tr>
+</tbody></table>
+<ol start="5">
+<li>检查员们点头后，这事就必须要干了。怎么干？客户要写的东东究竟用什么格式输出？这活由排版员Layout来干。下面是排版员的名单：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th><strong>排版员</strong></th>
+<th><strong>特长</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="http://logging.apache.org/log4net/release/sdk/log4net.Layout.ExceptionLayout.html">ExceptionLayout</a></td>
+<td>对LoggingEvent中的异常信息message进行排版</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://logging.apache.org/log4net/release/sdk/log4net.Layout.PatternLayout.html">PatternLayout</a></td>
+<td>最常用的排版员，通过一堆标识符来决定版式。如：”%date %-5level- %message” 表示要以此输出日志日期、级别（5个字母的宽度）、信息</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://logging.apache.org/log4net/release/sdk/log4net.Layout.SimpleLayout.html">SimpleLayout</a></td>
+<td>最简单的版式:  [level] - [message]</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://logging.apache.org/log4net/release/sdk/log4net.Layout.XmlLayout.html">XmlLayout</a></td>
+<td>把日志写到XML文件中去，写成一个Element</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="http://logging.apache.org/log4net/release/sdk/log4net.Layout.XmlLayoutSchemaLog4j.html">XmlLayoutSchemaLog4j</a></td>
+<td>把日志写到XML文件中去，写成一个Element，其格式需符合log4j对事件定义的DTD.</td>
+</tr>
+</tbody></table>
+<p>排版员需要排版LoggingEvent的信息的字符串内容RenderedMessage，例如文章开头的“hello world!”。除了“hello world!”这样的字符串，信息message还可以是任意的对象。因此需要针对对象进行专门的排版，由Render（对象打印机）来干。<br>  你可以针对自己的信息对象搞Render。如打印订单信息的OrderRenader，一旦在订单处理中发生错误，把订单的主要信息打印出来，方便调试。<strong>别忘了：<strong><strong>OrderRenader</strong></strong>必须实现log4net.ObjectRenderer.IObjectRenderer****。</strong></p>
+<ol start="6">
+<li><p>一切就绪，各个马仔就做最后的输出，有打印屏幕的，有写文件的，有在网络上发数据的，八仙过海，各显神通。 </p>
+<p>  整个流程走完，相信我们接触到的Logger、Appender、Filter、Layout、Render都已不再陌生。log4net良好的实现了事件过滤、格式排版的高度扩展性和可配置性。<br>  log4net的这处理模式可以看作是一种扩展的Publish&#x2F;Subscribe模式，完全可以应用到我们自己的应用程序中去，比如说订单处理，可以实现对不同订单的过滤，实现不同的订单的提交目的地（写数据库、发邮件、短信通知等等）。</p>
+<p>  最后，给出Repository、Appender、Filter、Layout、Render的关系简图：</p>
+</li>
+</ol>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://cdn.jsdelivr.net/gh/xudingxie/DrawingBed/pictures/o_log4netObjectRelations.png" alt="img"></p>
+<p>其中 核心是Repository是什么。</p>
+<p>Repository可以说成基于一个log4net配置节创建的log4net容器，它根据log4net配置节的指示创建其他所有对象（Logger&#x2F;Appender&#x2F;Filter&#x2F;Layout等等）并保有他们的实例，随时为你所用。</p>
+<p>​    每个Repository都有自己唯一的名字，如 root。</p>
+<p>​    一般而言一个AppDomain(或者说一个进程)有一个Repository，该AppDomain下所有程序集Assembly都可以使用这个Repository。Repository需要实现ILoggerRepository，log4net中log4net.Repository.Hierarchy.Hierarchy就通过继承LoggerRepositorySkeleton实现了ILoggerRepository，它也是log4net中唯一实现ILoggerRepository的类。   </p>
+<p><strong>Hierarchy</strong></p>
+<p>​    那么Hierarchy是什么呢？</p>
+<p>​    Hierarchy里存放着通过配置文件创建的所有Logger。由于Logger们是有父子关系的，因此Hierarchy通过继承树来存放所有的Logger。根节点就是我们熟悉的Root，如例：</p>
+<table>
+<thead>
+<tr>
+<th><strong>Logger</strong> <strong>名</strong></th>
+<th><strong>日志级别</strong></th>
+<th><strong>从父<strong><strong>Logger</strong></strong>继承的级别</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em>root</em></td>
+<td>INFO</td>
+<td>INFO</td>
+</tr>
+<tr>
+<td>my</td>
+<td>none</td>
+<td>INFO</td>
+</tr>
+<tr>
+<td>my.net</td>
+<td>DEBUG</td>
+<td>DEBUG</td>
+</tr>
+<tr>
+<td>my.net.tcp</td>
+<td>none</td>
+<td>DEBUG</td>
+</tr>
+</tbody></table>
+<p>对应的配置文件就是</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">level</span> <span class="attr">value</span>=<span class="string">&quot;INFO&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;ConsoleAppender&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot; my&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;ConsoleAppender&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot; my.net &quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;ConsoleAppender&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot; my.net.tcp&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">filter</span> <span class="attr">type</span>=<span class="string">&quot;log4net.Filter.LevelRangeFilter&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;LevelMin&quot;</span> <span class="attr">value</span>=<span class="string">&quot;DEBUG&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;LevelMax&quot;</span> <span class="attr">value</span>=<span class="string">&quot;INFO&quot;</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot; ColoredConsoleAppender&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上例中，定义了三个Logger，都将存放在Hierarchy中。三个Logger形成继承关系，<strong>子<strong><strong>Logger</strong></strong>中未定义的属性都将从父Logger****中继承</strong>。</p>
+<p>​    一旦你的应用程序通过log4net.LogManager.GetLogger()得到ILog（也就是logger的代理），那么将从Hierarchy的继承树中找出对应的Logger。</p>
+<p>  log4net.LogManager.GetLogger() 得到 root<br>  log4net.LogManager.GetLogger(“my”) 得到 my logger  </p>
+<p>  这样，你就可以为程序集中不同的命名空间甚至是某个类设置相应的log4net配置。如上例“my.net.tcp”就可以实现和其父Logger不同的日志行为。 </p>
+<p><strong>使用不同的****Repository</strong></p>
+<p>   如果你的应用程序中不同程序集需要使用不同<log4net>…</log4net>配置节，或者说需要使用不同的log4net配置文件，那就使用不同的Repository。</p>
+<p>​    如在my.net.tcp程序集中，加入语句：[assembly: log4net.Config.DOMConfigurator(ConfigFile&#x3D;”my.net.tcp.config”, Watch&#x3D;true)]</p>
+<p>  这样，你的就可以单独使用一份配置文件，创建一个新的Repository。</p>
+<p>​    你也可以为自己的Repository命名： [assembly: log4net.Config.AliasRepository(“myrepository”)] </p>
+<p><strong>如何共用****Repository</strong></p>
+<p>   不作上面所说的所有改动，一个AppDomain中所有程序集都共用缺省的Repository，但是当需要共用另一个Repository时，就需要做一些工作。产生这样的需求包括：</p>
+<ol>
+<li>两个应用程序共用一份log4net配置，对日志做同样的处理</li>
+<li>两个AppDomain需要共用一份log4net配置，对日志做同样的处理。特别时在运行时动态升级程序集时，这个需求显得尤其关键。</li>
+</ol>
+<p>首先记载log4net的程序集需要为Repository命名：[assembly: log4net.Config.AliasRepository(“myrepository”)]</p>
+<p>后续的程序集，只需要引用它即可：[assembly: log4net.Config.Repository(“myrepository”)]</p>
+<p> 这种方式下，两个AppDomain写同一份日志文件时，可能产生文件共享冲突的错误（文件已经被锁定，不能写），需要修改配置，在RollingLogFileAppender中加入lockingModel配置，如： </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;RollingLogFileAppender&quot;</span> <span class="attr">type</span>=<span class="string">&quot;log4net.Appender.RollingFileAppender&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;File&quot;</span> <span class="attr">value</span>=<span class="string">&quot;log\\TaskScheduleServer.log&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">lockingModel</span> <span class="attr">type</span>=<span class="string">&quot;log4net.Appender.FileAppender+MinimalLock&quot;</span> /&gt;</span>   </span><br><span class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/itrust/archive/2005/01/25/97225.html">log4net面面观之工作原理</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/itrust/archive/2006/07/17/452895.html">log4net面面观之Repository</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhuispeed/archive/2009/11/14/1603181.html">Log4net Logger模块 结构</a>这个看着很高端，但是看不懂</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https:////cdn.jsdelivr.net/gh/xudingxie/DrawingBed/pictures/images" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https:////cdn.jsdelivr.net/gh/xudingxie/DrawingBed/pictures/images" title="头像" alt="头像"></a><div class="post-copyright__author_name">xudingxie</div><div class="post-copyright__author_desc">你想要的，我这都没有</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="https://xudingxie.github.io/2024/04/23/C%20Sharp/C%20Sharp%20log4net/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('https://xudingxie.github.io/2024/04/23/C%20Sharp/C%20Sharp%20log4net/')">C Sharp log4net</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="/img/reward/wechat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/reward/wechat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/reward/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/reward/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="https://xudingxie.github.io/2024/04/23/C%20Sharp/C%20Sharp%20log4net/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=undefined&amp;url=https://xudingxie.github.io/2024/04/23/C%20Sharp/C%20Sharp%20log4net/&amp;pic=undefined" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://xudingxie.github.io" target="_blank">xieding的安家小屋</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/C/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>C#<span class="tagsPageCount">55</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https:////cdn.jsdelivr.net/gh/xudingxie/DrawingBed/pictures/images" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2024/04/23/C%20Sharp/C%20Sharp%20%20%E8%BF%AD%E4%BB%A3%E5%99%A8/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">C Sharp 迭代器</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="anzhiyufont anzhiyu-icon-thumbs-up fa-fw" style="font-size: 1.5rem; margin-right: 4px"></i><span>喜欢这篇文章的人也看了</span></div><div class="relatedPosts-list"><div><a href="/2023/12/06/C%20Sharp/ASP.NET%20Core%20Web%20API%E5%88%9B%E5%BB%BA/" title="ASP.NET Core Web API创建"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.dotnetcurry.com/images/aspnet-core/webapi-attributes/aspnet-core-webapi.png" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-12-06</div><div class="title">ASP.NET Core Web API创建</div></div></a></div><div><a href="/2022/02/04/C%20Sharp/ASP.NET%20Core%20Web%20API%E7%9A%84%E8%BF%94%E5%9B%9E%E6%A0%BC%E5%BC%8F/" title="ASP.NET Core Web API返回格式"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.dotnetcurry.com/images/aspnet-core/webapi-attributes/aspnet-core-webapi.png" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-02-04</div><div class="title">ASP.NET Core Web API返回格式</div></div></a></div><div><a href="/2024/02/23/C%20Sharp/ASP.NET%20Core%20Web%20API%E9%83%A8%E7%BD%B2/" title="ASP.NET Core Web API部署"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://www.dotnetcurry.com/images/aspnet-core/webapi-attributes/aspnet-core-webapi.png" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2024-02-23</div><div class="title">ASP.NET Core Web API部署</div></div></a></div><div><a href="/2023/12/06/C%20Sharp/AutoFac%E7%9A%84%E4%BD%BF%E7%94%A8/" title="Autofac的使用"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://tse1-mm.cn.bing.net/th/id/OIP-C.Qdhk8-ggHQGvZVJ7RTZeKAHaD4?w=343&h=180&c=7&r=0&o=5&cb=11&pid=1.7" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2023-12-06</div><div class="title">Autofac的使用</div></div></a></div><div><a href="/2022/10/09/C%20Sharp/AutoResetEvent%E4%B8%8EWaitone%E4%B8%8Eset/" title="AutoResetEvent的线程同步"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://tse1-mm.cn.bing.net/th/id/OIP-C._NVBTVdmjt3Qvq3CZOySXgHaEK?w=319&h=180&c=7&r=0&o=5&cb=11&pid=1.7" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-10-09</div><div class="title">AutoResetEvent的线程同步</div></div></a></div><div><a href="/2022/11/23/C%20Sharp/C%20Sharp%20%20CsvHelper-%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97%EF%BC%886%EF%BC%89/" title="C-CsvHelper-学习日志（6）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" alt="cover"><div class="content is-center"><div class="date"><i class="anzhiyufont anzhiyu-icon-calendar-days fa-fw"></i> 2022-11-23</div><div class="title">C-CsvHelper-学习日志（6）</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="anzhiyufont anzhiyu-icon-comments"></i><span> 评论</span></div><div class="comment-randomInfo"><a onclick="anzhiyu.addRandomCommentInfo()" href="javascript:void(0)">匿名评论</a><a href="/privacy" style="margin-left: 4px">隐私政策</a></div><div class="comment-tips" id="comment-tips"><span>✅ 你无需删除空行，直接评论以获取最佳展示效果</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div><div class="comment-barrage"></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info__sayhi" id="author-info__sayhi" onclick="anzhiyu.changeSayHelloText()"></div><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https:////cdn.jsdelivr.net/gh/xudingxie/DrawingBed/pictures/images" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-status"><img class="g-status" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://emotion.acs.pw/emotion/洛天依/去吧.png" ait="status"/></div></div><div class="author-info__description">随便看，看到想要的就随便copy，啊。反正我也是抄别人的，原创是不存在的。</div><div class="author-info__bottom-group"><a class="author-info__bottom-group-left" href="/"><h1 class="author-info__name">xudingxie</h1><div class="author-info__desc">你想要的，我这都没有</div></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/xudingxie" target="_blank" title="Github"><i class="anzhiyufont anzhiyu-icon-github"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Log4net"><span class="toc-number">1.</span> <span class="toc-text">Log4net</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">记录流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.</span> <span class="toc-text">参考内容</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/04/23/C%20Sharp/C%20Sharp%20log4net/" title="C Sharp log4net">C Sharp log4net</a><time datetime="2024-04-23T13:21:01.000Z" title="发表于 2024-04-23 21:21:01">2024-04-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/04/23/C%20Sharp/C%20Sharp%20%20%E8%BF%AD%E4%BB%A3%E5%99%A8/" title="C Sharp 迭代器">C Sharp 迭代器</a><time datetime="2024-04-23T11:48:20.033Z" title="发表于 2024-04-23 19:48:20">2024-04-23</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/04/21/%E6%97%A5%E8%AE%B0/%E7%9C%BC%E9%95%9C%E9%85%8D%E9%95%9C/" title="眼镜配镜">眼镜配镜</a><time datetime="2024-04-21T16:00:00.000Z" title="发表于 2024-04-22 00:00:00">2024-04-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/04/19/C%20Sharp/C%20Sharp%20yield/" title="C Sharp yield">C Sharp yield</a><time datetime="2024-04-19T12:49:01.000Z" title="发表于 2024-04-19 20:49:01">2024-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/04/15/C%20Sharp/C%20Sharp%20Task%E5%AD%A6%E4%B9%A0/" title="C Sharp Task学习">C Sharp Task学习</a><time datetime="2024-04-15T16:00:00.000Z" title="发表于 2024-04-16 00:00:00">2024-04-16</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2024 By <a class="footer-bar-link" href="/" title="xudingxie" target="_blank">xudingxie</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">230</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">169</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">124</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.xieding.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">我的项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床？？？"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床？？？"/><span class="back-menu-item-text">安知鱼图床？？？</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/Attribute/" style="font-size: 0.88rem;">Attribute<sup>1</sup></a><a href="/tags/C/" style="font-size: 0.88rem;">C#<sup>55</sup></a><a href="/tags/CSHARP/" style="font-size: 0.88rem;">CSHARP<sup>1</sup></a><a href="/tags/Csv/" style="font-size: 0.88rem;">Csv<sup>1</sup></a><a href="/tags/DataTable/" style="font-size: 0.88rem;">DataTable<sup>1</sup></a><a href="/tags/DateTime/" style="font-size: 0.88rem;">DateTime<sup>1</sup></a><a href="/tags/Form%E6%93%8D%E4%BD%9C/" style="font-size: 0.88rem;">Form操作<sup>8</sup></a><a href="/tags/Hepler/" style="font-size: 0.88rem;">Hepler<sup>11</sup></a><a href="/tags/MessageBox/" style="font-size: 0.88rem;">MessageBox<sup>1</sup></a><a href="/tags/PadLeft/" style="font-size: 0.88rem;">PadLeft()<sup>1</sup></a><a href="/tags/PadRight/" style="font-size: 0.88rem;">PadRight()<sup>1</sup></a><a href="/tags/RPC/" style="font-size: 0.88rem;">RPC<sup>2</sup></a><a href="/tags/SQL-Server/" style="font-size: 0.88rem;">SQL Server<sup>1</sup></a><a href="/tags/TCP/" style="font-size: 0.88rem;">TCP<sup>2</sup></a><a href="/tags/TextBox/" style="font-size: 0.88rem;">TextBox<sup>2</sup></a><a href="/tags/logger4/" style="font-size: 0.88rem;">logger4<sup>1</sup></a><a href="/tags/sql-server/" style="font-size: 0.88rem;">sql server<sup>1</sup></a><a href="/tags/toString/" style="font-size: 0.88rem;">toString<sup>1</sup></a><a href="/tags/%E4%BA%8B%E4%BB%B6/" style="font-size: 0.88rem;">事件<sup>3</sup></a><a href="/tags/%E5%86%85%E8%81%9A/" style="font-size: 0.88rem;">内聚<sup>1</sup></a><a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 0.88rem;">前端<sup>23</sup></a><a href="/tags/%E5%9B%BE%E7%89%87%E8%BD%AC%E5%8C%96/" style="font-size: 0.88rem;">图片转化<sup>1</sup></a><a href="/tags/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">基础学习<sup>9</sup></a><a href="/tags/%E5%A7%94%E6%89%98/" style="font-size: 0.88rem;">委托<sup>1</sup></a><a href="/tags/%E5%AD%97%E5%85%B8/" style="font-size: 0.88rem;">字典<sup>1</sup></a><a href="/tags/%E5%AD%97%E8%8A%82%E6%95%B0%E7%BB%84/" style="font-size: 0.88rem;">字节数组<sup>2</sup></a><a href="/tags/%E5%AD%97%E8%8A%82%E6%B5%81/" style="font-size: 0.88rem;">字节流<sup>1</sup></a><a href="/tags/%E5%AE%9A%E6%9C%9F%E6%B8%85%E7%90%86/" style="font-size: 0.88rem;">定期清理<sup>1</sup></a><a href="/tags/%E5%BC%82%E5%B8%B8/" style="font-size: 0.88rem;">异常<sup>1</sup></a><a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 0.88rem;">数据库<sup>8</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E5%90%8D%E7%A7%B0/" style="font-size: 0.88rem;">文件名称<sup>1</sup></a><a href="/tags/%E6%96%87%E4%BB%B6%E5%A4%B9/" style="font-size: 0.88rem;">文件夹<sup>1</sup></a><a href="/tags/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/" style="font-size: 0.88rem;">日常学习<sup>3</sup></a><a href="/tags/%E7%9F%A5%E9%94%99%E5%B0%B1%E6%94%B9/" style="font-size: 0.88rem;">知错就改<sup>10</sup></a><a href="/tags/%E7%A8%8B%E5%BA%8F%E8%B7%AF%E5%BE%84/" style="font-size: 0.88rem;">程序路径<sup>1</sup></a><a href="/tags/%E7%B1%BB/" style="font-size: 0.88rem;">类<sup>2</sup></a><a href="/tags/%E8%80%A6%E5%90%88/" style="font-size: 0.88rem;">耦合<sup>1</sup></a><a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" style="font-size: 0.88rem;">软件工程<sup>1</sup></a><a href="/tags/%E8%BF%9E%E6%8E%A5/" style="font-size: 0.88rem;">连接<sup>1</sup></a><a href="/tags/%E9%83%A8%E5%88%86%E5%86%85%E5%AE%B9%E7%9A%84%E6%80%BB%E7%BB%93/" style="font-size: 0.88rem;">部分内容的总结<sup>1</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="anzhiyufont anzhiyu-icon-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random"></meting-js></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="anzhiyufont anzhiyu-icon-xmark"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"><a class="tag-list" href="/tags/%E5%89%8D%E7%AB%AF" title="前端">前端</a><a class="tag-list" href="/tags/Hexo" title="Hexo">Hexo</a></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.20/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.4/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.cbd.int/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script async src="/anzhiyu/random.js"></script><script src="https://cdn.cbd.int/algoliasearch@4.18.0/dist/algoliasearch-lite.umd.js"></script><script src="https://cdn.cbd.int/instantsearch.js@4.56.5/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>(() => {
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twikoo-silk-two.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        anzhiyu.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(runFn,0)
+    else getScript('https://cdn.cbd.int/twikoo@1.6.21/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-silk-two.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const runFn = () => {
+    init();
+    
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) anzhiyu.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else {
+      loadTwikoo()
+    }
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script><input type="hidden" name="page-type" id="page-type" value="post"></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'https://twikoo-silk-two.vercel.app/',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.textContent= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.cbd.int/twikoo@1.6.21/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'data-lazy-src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'><div class='name'><span>${array[i].nick} </span></div></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}' title='${array[i].content}'>${array[i].content}</a>
+        <time datetime="${array[i].date}">${anzhiyu.diffDate(array[i].date, true)}</time></div>
+        </div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script>var visitorMail = "xudingxie@gmail.com";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:type\"]","meta[property=\"og:site_name\"]","meta[property=\"og:description\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
