@@ -97,7 +97,16 @@ window.addEventListener("load", () => {
     searchOnEnterKeyPressOnly: true,
     searchAsYouType: false,
   });
-
+  function getHighlightString(message) {
+    const match = message.match(/__ais-highlight__(.*?)__/);
+    if (match) {
+      const highlight = match[1];
+      const start = Math.max(0, highlight.length - 10);
+      const end = Math.min(highlight.length, highlight.length + 10);
+      return highlight.substring(start, end);
+    }
+    return "";
+  }
   const hits = instantsearch.widgets.hits({
     container: "#algolia-hits",
     templates: {
@@ -105,6 +114,7 @@ window.addEventListener("load", () => {
         const link = data.permalink ? data.permalink : GLOBAL_CONFIG.root + data.path;
         const result = data._highlightResult;
         const loadingLogo = document.querySelector("#algolia-hits .anzhiyu-spin");
+        const highlightMessage=getHighlightString(data.contentStripTruncate)
         if (loadingLogo) {
           loadingLogo.style.display = "none";
         }
@@ -113,7 +123,7 @@ window.addEventListener("load", () => {
         }, 200);
         return `
           <a href="${link}" class="algolia-hit-item-link">
-          <span class="algolia-hits-item-title">${result.title.value || "no-title"}</span>
+          <span class="algolia-hits-item-title">${result.title.value || "no-title"}+"|"${highlightMessage}</span>
           </a>`;
       },
       empty: function (data) {
