@@ -98,14 +98,7 @@ window.addEventListener("load", () => {
     searchAsYouType: false,
   });
   function getHighlightString(message) {
-    const match = message.match(/__ais-highlight__(.*?)__/);
-    if (match) {
-      const highlight = match[1];
-      const start = Math.max(0, highlight.length - 10);
-      const end = Math.min(highlight.length, highlight.length + 10);
-      return highlight.substring(start, end);
-    }
-    return "";
+    return message;
   }
   const hits = instantsearch.widgets.hits({
     container: "#algolia-hits",
@@ -124,7 +117,7 @@ window.addEventListener("load", () => {
         return `
           <a href="${link}" class="algolia-hit-item-link">
           <span class="algolia-hits-item-title">${result.title.value || "no-title"}</span>
-          <br/>
+          <br>
           <span class="algolia-hits-item-content">${highlightMessage}</span>
           </a>`;
       },
