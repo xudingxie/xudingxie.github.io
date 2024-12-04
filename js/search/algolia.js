@@ -119,8 +119,8 @@ window.addEventListener("load", () => {
     const match = message.match(keyword);
     if (match) {
       const highlight = match[1];
-      const start = Math.max(0, highlight.length - 10);
-      const end = Math.min(highlight.length, highlight.length + 10);
+      const start = Math.max(0, highlight.length - 18);
+      const end = Math.min(highlight.length, highlight.length + 18);
       return highlight.substring(start, end);
     } else {
       return message;
