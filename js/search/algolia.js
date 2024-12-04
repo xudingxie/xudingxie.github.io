@@ -123,7 +123,9 @@ window.addEventListener("load", () => {
         }, 200);
         return `
           <a href="${link}" class="algolia-hit-item-link">
-          <span class="algolia-hits-item-title">${result.title.value || "no-title"}+"|"${highlightMessage}</span>
+          <span class="algolia-hits-item-title">${result.title.value || "no-title"}</span>
+          <br/>
+          <span>${highlightMessage}</span>
           </a>`;
       },
       empty: function (data) {
