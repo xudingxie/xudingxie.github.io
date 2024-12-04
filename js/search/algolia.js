@@ -1,6 +1,8 @@
 window.addEventListener("load", () => {
   const $searchMask = document.getElementById("search-mask");
-  const $searchDialog = document.querySelector("#algolia-search .search-dialog");
+  const $searchDialog = document.querySelector(
+    "#algolia-search .search-dialog"
+  );
 
   const openSearch = () => {
     anzhiyu.animateIn($searchMask, "to_show 0.5s");
@@ -28,11 +30,17 @@ window.addEventListener("load", () => {
         console.info(selectTextNow);
         if (selectTextNow) {
           openSearch();
-          const t = document.querySelector("#algolia-search-input > div > form > input");
+          const t = document.querySelector(
+            "#algolia-search-input > div > form > input"
+          );
           t.value = selectTextNow;
           t.dispatchEvent(new Event("input"));
           setTimeout(() => {
-            document.querySelector("#algolia-search-input > div > form > button.ais-SearchBox-submit").click();
+            document
+              .querySelector(
+                "#algolia-search-input > div > form > button.ais-SearchBox-submit"
+              )
+              .click();
           }, 64);
         } else {
           openSearch();
@@ -52,17 +60,26 @@ window.addEventListener("load", () => {
   // fix safari
   const fixSafariHeight = () => {
     if (window.innerWidth < 768) {
-      $searchDialog.style.setProperty("--search-height", window.innerHeight + "px");
+      $searchDialog.style.setProperty(
+        "--search-height",
+        window.innerHeight + "px"
+      );
     }
   };
 
   const searchClickFn = () => {
-    anzhiyu.addEventListenerPjax(document.querySelector("#search-button > .search"), "click", openSearch);
+    anzhiyu.addEventListenerPjax(
+      document.querySelector("#search-button > .search"),
+      "click",
+      openSearch
+    );
   };
 
   const searchFnOnce = () => {
     $searchMask.addEventListener("click", closeSearch);
-    document.querySelector("#algolia-search .search-close-button").addEventListener("click", closeSearch);
+    document
+      .querySelector("#algolia-search .search-close-button")
+      .addEventListener("click", closeSearch);
   };
 
   const algolia = GLOBAL_CONFIG.algolia;
@@ -77,7 +94,8 @@ window.addEventListener("load", () => {
     searchClient: algoliasearch(algolia.appId, algolia.apiKey),
     searchFunction(helper) {
       if (helper.state.query) {
-        let innerLoading = '<i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i>';
+        let innerLoading =
+          '<i class="anzhiyufont anzhiyu-icon-spinner anzhiyu-spin"></i>';
         document.getElementById("algolia-hits").innerHTML = innerLoading;
         helper.search();
       }
@@ -97,42 +115,68 @@ window.addEventListener("load", () => {
     searchOnEnterKeyPressOnly: true,
     searchAsYouType: false,
   });
-  function getHighlightString(message) {
-    return message;
+  function getHighlightString(message, keyword) {
+    const match = message.match(keyword);
+    if (match) {
+      const highlight = match[1];
+      const start = Math.max(0, highlight.length - 10);
+      const end = Math.min(highlight.length, highlight.length + 10);
+      return highlight.substring(start, end);
+    } else {
+      return message;
+    }
   }
   const hits = instantsearch.widgets.hits({
     container: "#algolia-hits",
     templates: {
       item(data) {
-        const link = data.permalink ? data.permalink : GLOBAL_CONFIG.root + data.path;
+        const link = data.permalink
+          ? data.permalink
+          : GLOBAL_CONFIG.root + data.path;
         const result = data._highlightResult;
-        const loadingLogo = document.querySelector("#algolia-hits .anzhiyu-spin");
-        const highlightMessage=getHighlightString(result.contentStripTruncate.value)
+        const loadingLogo = document.querySelector(
+          "#algolia-hits .anzhiyu-spin"
+        );
+        const highlightMessage = getHighlightString(
+          result.contentStripTruncate.value,
+          result.contentStripTruncate.matchWords[0]
+        );
         if (loadingLogo) {
           loadingLogo.style.display = "none";
         }
         setTimeout(() => {
-          document.querySelector("#algolia-search .ais-SearchBox-input").focus();
+          document
+            .querySelector("#algolia-search .ais-SearchBox-input")
+            .focus();
         }, 200);
         return `
           <a href="${link}" class="algolia-hit-item-link">
-          <span class="algolia-hits-item-title">${result.title.value || "no-title"}</span>
+          <span class="algolia-hits-item-title">${
+            result.title.value || "no-title"
+          }</span>
           <br>
           <span class="algolia-hits-item-content">${highlightMessage}</span>
           </a>`;
       },
       empty: function (data) {
-        const loadingLogo = document.querySelector("#algolia-hits .anzhiyu-spin");
+        const loadingLogo = document.querySelector(
+          "#algolia-hits .anzhiyu-spin"
+        );
         console.info(loadingLogo);
         if (loadingLogo) {
           loadingLogo.style.display = "none";
         }
         setTimeout(() => {
-          document.querySelector("#algolia-search .ais-SearchBox-input").focus();
+          document
+            .querySelector("#algolia-search .ais-SearchBox-input")
+            .focus();
         }, 200);
         return (
           '<div id="algolia-hits-empty">' +
-          GLOBAL_CONFIG.algolia.languages.hits_empty.replace(/\$\{query}/, data.query) +
+          GLOBAL_CONFIG.algolia.languages.hits_empty.replace(
+            /\$\{query}/,
+            data.query
+          ) +
           "</div>"
         );
       },
