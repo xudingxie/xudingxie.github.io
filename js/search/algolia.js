@@ -114,7 +114,7 @@ window.addEventListener("load", () => {
         const link = data.permalink ? data.permalink : GLOBAL_CONFIG.root + data.path;
         const result = data._highlightResult;
         const loadingLogo = document.querySelector("#algolia-hits .anzhiyu-spin");
-        const highlightMessage=getHighlightString(result.contentStripTruncate)
+        const highlightMessage=getHighlightString(result.contentStripTruncate.value)
         if (loadingLogo) {
           loadingLogo.style.display = "none";
         }
