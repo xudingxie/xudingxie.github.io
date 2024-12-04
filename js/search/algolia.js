@@ -114,7 +114,7 @@ window.addEventListener("load", () => {
         const link = data.permalink ? data.permalink : GLOBAL_CONFIG.root + data.path;
         const result = data._highlightResult;
         const loadingLogo = document.querySelector("#algolia-hits .anzhiyu-spin");
-        const highlightMessage=getHighlightString(data.contentStripTruncate)
+        const highlightMessage=getHighlightString(result.contentStripTruncate)
         if (loadingLogo) {
           loadingLogo.style.display = "none";
         }
@@ -125,7 +125,7 @@ window.addEventListener("load", () => {
           <a href="${link}" class="algolia-hit-item-link">
           <span class="algolia-hits-item-title">${result.title.value || "no-title"}</span>
           <br/>
-          <span>${highlightMessage}</span>
+          <span class="algolia-hits-item-content">${highlightMessage}</span>
           </a>`;
       },
       empty: function (data) {
