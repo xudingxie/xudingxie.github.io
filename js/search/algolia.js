@@ -118,10 +118,9 @@ window.addEventListener("load", () => {
   function getHighlightString(message, keyword) {
     const match = message.match(keyword);
     if (match) {
-      const highlight = match[1];
-      const start = Math.max(0, highlight.length - 18);
-      const end = Math.min(highlight.length, highlight.length + 18);
-      return highlight.substring(start, end);
+      const start = Math.max(0, message.length - 18);
+      const end = Math.min(highlight.length, message.length + 18);
+      return message.substring(start, end);
     } else {
       return message;
     }
