@@ -118,7 +118,7 @@ window.addEventListener("load", () => {
   function getHighlightString(message, keyword) {
     const match = message.match(keyword);
     if (match) {
-      const start = Math.max(0, match.index - 18);
+      const start = Math.max(0, match.index - 10 - keyword.length);
       const end = Math.min(message.length, match.index + 18);
       return message.substring(start, end);
     } else {
@@ -136,8 +136,9 @@ window.addEventListener("load", () => {
         const loadingLogo = document.querySelector(
           "#algolia-hits .anzhiyu-spin"
         );
-        if(result != null){
-          const highlightMessage = getHighlightString(
+        let highlightMessage = "";
+        if (result != null) {
+          highlightMessage = getHighlightString(
             result.contentStripTruncate.value,
             result.contentStripTruncate.matchedWords[0]
           );
