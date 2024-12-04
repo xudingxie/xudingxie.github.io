@@ -137,10 +137,12 @@ window.addEventListener("load", () => {
         const loadingLogo = document.querySelector(
           "#algolia-hits .anzhiyu-spin"
         );
-        const highlightMessage = getHighlightString(
-          result.contentStripTruncate.value,
-          result.contentStripTruncate.matchWords[0]
-        );
+        if(result != null){
+          const highlightMessage = getHighlightString(
+            result.contentStripTruncate.value,
+            result.contentStripTruncate.matchedWords[0]
+          );
+        }
         if (loadingLogo) {
           loadingLogo.style.display = "none";
         }
