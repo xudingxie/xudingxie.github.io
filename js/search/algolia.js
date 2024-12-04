@@ -116,10 +116,11 @@ window.addEventListener("load", () => {
     searchAsYouType: false,
   });
   function getHighlightString(message, keyword) {
-    const match = message.match(keyword);
+    const regex=new RegExp(keyword,"i")
+    const match = message.match(regex);
     if (match) {
       const start = Math.max(0, match.index - 10 - keyword.length);
-      const end = Math.min(message.length, match.index + 18);
+      const end = Math.min(message.length, match.index + 30);
       return message.substring(start, end);
     } else {
       return message;
