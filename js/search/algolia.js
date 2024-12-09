@@ -118,7 +118,7 @@ window.addEventListener("load", () => {
   function getHighlightString(message, keyword) {
     const regex=new RegExp(keyword,"i")
     const match = message.match(regex);
-    if (match) {
+    if (match&&!keyword) {
       const start = Math.max(0, match.index - 10 - keyword.length);
       const end = Math.min(message.length, match.index + 30);
       return message.substring(start, end);
